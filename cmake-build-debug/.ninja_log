@@ -1,20 +1,15 @@
 # ninja log v5
 18	112	7299506551407653	libs/algorithms/CMakeFiles/algorithms.dir/algorithms.c.obj	7797bacf331ed7c7
-1	125	7311208848273847	build.ninja	41d4749eaf8ee005
-8	181	7299748114549933	CMakeFiles/array.dir/main.c.obj	d7e04a57cf141e5
+1	125	7311783259775695	build.ninja	41d4749eaf8ee005
+4	166	7311224997781772	CMakeFiles/array.dir/main.c.obj	d7e04a57cf141e5
 10	117	7299506551477450	CMakeFiles/array.dir/libs/algorithms/algorithms.c.obj	e3e7d58820f16335
 22	124	7299748113971485	libs/data_structures/CMakeFiles/data_structures.dir/ordered_array_set/ordered_array_set.c.obj	c4512443cc73465
 12	96	7299748113672291	libs/algorithms/CMakeFiles/algorithms.dir/array/array.c.obj	344603518743c8b7
 3	94	7299748113652337	CMakeFiles/array.dir/libs/algorithms/array/array.c.obj	8fd7235428f32d61
 15	95	7299748113662316	libs/data_structures/CMakeFiles/data_structures.dir/bitset/bitset.c.obj	ad6ed7416d430956
-18	118	7299748113921615	libs/data_structures/CMakeFiles/data_structures.dir/unordered_array_set/unordered_array_set.c.obj	9c4b68580207558f
+8	108	7311224997213579	libs/data_structures/CMakeFiles/data_structures.dir/unordered_array_set/unordered_array_set.c.obj	9c4b68580207558f
 96	170	7299748114430262	libs/algorithms/libalgorithms.a	d884ba3463b76e5d
-124	186	7299748114599803	libs/data_structures/libdata_structures.a	144621fd4734a048
+109	192	7311224998051045	libs/data_structures/libdata_structures.a	144621fd4734a048
 6	50	7299567038410972	CMakeFiles/array.dir/array.c.obj	840086a633d01b22
 10	62	7299571034434286	CMakeFiles/array.dir/cmake-build-debugarray.c.obj	6d9b0f1ba7028983
-3	120	7311213417714896	CMakeFiles/array.dir/main.c.obj	d7e04a57cf141e5
-131	215	7311213418642272	array.exe	25ada13e260b1676
-8	108	7311224997213579	libs/data_structures/CMakeFiles/data_structures.dir/unordered_array_set/unordered_array_set.c.obj	9c4b68580207558f
-4	166	7311224997781772	CMakeFiles/array.dir/main.c.obj	d7e04a57cf141e5
-109	192	7311224998051045	libs/data_structures/libdata_structures.a	144621fd4734a048
 192	309	7311224999138139	array.exe	25ada13e260b1676

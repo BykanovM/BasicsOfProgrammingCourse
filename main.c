@@ -3,6 +3,7 @@
 #include "libs/data_structures/bitset/bitset.h"
 #include "libs/data_structures/unordered_array_set/unordered_array_set.h"
 #include "libs/data_structures/ordered_array_set/ordered_array_set.h"
+#include "libs/data_structures/vector/vector.h"
 
 /*// тесты с битовыми множествами
 typedef unsigned int uint;
