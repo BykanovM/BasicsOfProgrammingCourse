@@ -17,3 +17,9 @@
 4	44	7311973353461130	libs/data_structures/CMakeFiles/data_structures.dir/vector/vectorVoid.c.obj	f62556a58cdce2af
 45	102	7311973354039586	libs/data_structures/libdata_structures.a	3e7befb6f613cdba
 102	188	7311973354861751	array.exe	25ada13e260b1676
+2	72	7311993871327626	CMakeFiles/array.dir/main.c.obj	d7e04a57cf141e5
+6	78	7311993871387468	libs/data_structures/CMakeFiles/data_structures.dir/vector/vectorVoid.c.obj	f62556a58cdce2af
+79	136	7311993871974413	libs/data_structures/libdata_structures.a	3e7befb6f613cdba
+136	224	7311993872822461	array.exe	25ada13e260b1676
+4	75	7311995412195471	CMakeFiles/array.dir/main.c.obj	d7e04a57cf141e5
+75	160	7311995413013582	array.exe	25ada13e260b1676

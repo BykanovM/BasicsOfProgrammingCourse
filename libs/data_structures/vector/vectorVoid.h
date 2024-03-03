@@ -25,4 +25,23 @@ void shrinkToFitV(vectorVoid *v);
 //освобождает память, выделенную вектору
 void deleteVectorV(vectorVoid *v);
 
+//проверка на то, является ли вектор пустым
+bool isEmptyV(vectorVoid *v);
+
+//проверка на то, является ли вектор полным
+bool isFullV(vectorVoid *v);
+
+//записывает по адресу destination index-ый элемент вектора v
+void getVectorValueV(vectorVoid *v, size_t index, void *destination);
+
+//записывает на index-ый элемент вектора v значение, расположенное по адресу source
+void setVectorValueV(vectorVoid *v, size_t index, const void *source);
+
+//удаляет последний элемент из вектора
+void popBackV(vectorVoid *v);
+
+//добавляет элемент по адресу source в конец вектора v. Если вектор заполнен,
+//увеличвает количество выделенной ему памяти в 2 раза, используя reserveV
+void pushBackV(vectorVoid *v, void *source);
+
 #endif //ARRAY_VECTORVOID_H
