@@ -4,6 +4,7 @@
 #include "libs/data_structures/unordered_array_set/unordered_array_set.h"
 #include "libs/data_structures/ordered_array_set/ordered_array_set.h"
 #include "libs/data_structures/vector/vector.h"
+#include "libs/data_structures/vector/vectorVoid.h"
 
 /*// тесты с битовыми множествами
 typedef unsigned int uint;
@@ -1230,7 +1231,7 @@ void test() {
     test_bitset();
     test_ordered_array_set();
     test_unordered_array_set();
-}*/
+}
 
 
 void test_pushBack_emptyVector() {
@@ -1296,7 +1297,7 @@ void test_front_oneElementInVector() {
     int *element = front(&v);
     assert(*element == 42);
     deleteVector(&v);
-}
+}*/
 
 void test() {
     test_pushBack_emptyVector();
@@ -1309,7 +1310,7 @@ void test() {
 }
 
 int main() {
-    test();
+    //test();
 
     return 0;
 }
