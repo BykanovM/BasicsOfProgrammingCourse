@@ -74,3 +74,11 @@
 69	154	7311933394895186	array.exe	25ada13e260b1676
 3	65	7311933576709383	CMakeFiles/array.dir/main.c.obj	d7e04a57cf141e5
 65	148	7311933577517515	array.exe	25ada13e260b1676
+3	76	7311966307080470	CMakeFiles/array.dir/main.c.obj	d7e04a57cf141e5
+8	77	7311966307080470	libs/data_structures/CMakeFiles/data_structures.dir/vector/vector.c.obj	ca2a1ff2ae397fbf
+77	129	7311966307619831	libs/data_structures/libdata_structures.a	20a96b8a3977fb5e
+130	218	7311966308487809	array.exe	25ada13e260b1676
+3	68	7311966542158016	CMakeFiles/array.dir/main.c.obj	d7e04a57cf141e5
+68	153	7311966542986105	array.exe	25ada13e260b1676
+3	68	7311967168199329	CMakeFiles/array.dir/main.c.obj	d7e04a57cf141e5
+68	152	7311967169017415	array.exe	25ada13e260b1676

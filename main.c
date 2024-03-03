@@ -1233,12 +1233,6 @@ void test() {
 }*/
 
 
-/*bool isEmpty(vector *v);
-bool isFull(vector *v);
-int getVectorValue(vector *v, size_t i);
-void pushBack(vector *v, int x);
-void popBack(vector *v);*/
-
 void test_pushBack_emptyVector() {
     vector v = createVector(0);
     assert(isEmpty(&v));
@@ -1268,10 +1262,50 @@ void test_popBack_notEmptyVector() {
     assert(v.capacity == 1);
 }
 
+void test_atVector_notEmptyVector() {
+    vector v = createVector(5);
+    for (size_t i = 0; i < 5; ++i) {
+        pushBack(&v, i);
+    }
+    int *element = atVector(&v, 1);
+    assert(*element == 1);
+    deleteVector(&v);
+}
+
+void test_atVector_requestToLastElement() {
+    vector v = createVector(5);
+    for (size_t i = 0; i < 5; ++i) {
+        pushBack(&v, i);
+    }
+    int *element = atVector(&v, v.size - 1);
+    assert(*element == 4);
+    deleteVector(&v);
+}
+
+void test_back_oneElementInVector() {
+    vector v = createVector(1);
+    pushBack(&v, 42);
+    int *element = back(&v);
+    assert(*element == 42);
+    deleteVector(&v);
+}
+
+void test_front_oneElementInVector() {
+    vector v = createVector(1);
+    pushBack(&v, 42);
+    int *element = front(&v);
+    assert(*element == 42);
+    deleteVector(&v);
+}
+
 void test() {
     test_pushBack_emptyVector();
     test_pushBack_fullVector();
     test_popBack_notEmptyVector();
+    test_atVector_notEmptyVector();
+    test_atVector_requestToLastElement();
+    test_back_oneElementInVector();
+    test_front_oneElementInVector();
 }
 
 int main() {
