@@ -1229,9 +1229,50 @@ void test_unordered_array_set() {
 void test() {
     test_bitset();
     test_ordered_array_set();
-    //test_unordered_array_set();
+    test_unordered_array_set();
 }*/
 
+
+/*bool isEmpty(vector *v);
+bool isFull(vector *v);
+int getVectorValue(vector *v, size_t i);
+void pushBack(vector *v, int x);
+void popBack(vector *v);*/
+
+void test_pushBack_emptyVector() {
+    vector v = createVector(0);
+    assert(isEmpty(&v));
+    pushBack(&v, 4);
+    assert(!isEmpty(&v));
+    assert(getVectorValue(&v, 0) == 4);
+    deleteVector(&v);
+}
+
+void test_pushBack_fullVector() {
+    vector v = createVector(5);
+    for (int i = 0; i < 5; i++) {
+        pushBack(&v, i);
+    }
+    assert(isFull(&v));
+    pushBack(&v, 6);
+    assert(getVectorValue(&v, 5) == 6);
+    deleteVector(&v);
+}
+
+void test_popBack_notEmptyVector() {
+    vector v = createVector(0);
+    pushBack(&v, 10);
+    assert(v.size == 1);
+    popBack(&v);
+    assert(v.size == 0);
+    assert(v.capacity == 1);
+}
+
+void test() {
+    test_pushBack_emptyVector();
+    test_pushBack_fullVector();
+    test_popBack_notEmptyVector();
+}
 
 int main() {
     test();
