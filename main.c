@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <string.h>
 #include "libs/algorithms/array/array.h"
 #include "libs/data_structures/bitset/bitset.h"
 #include "libs/data_structures/unordered_array_set/unordered_array_set.h"
 #include "libs/data_structures/ordered_array_set/ordered_array_set.h"
-#include "libs/data_structures/vector/vector.h"
+#include "libs/data_structures/matrix/matrix.h"
 #include "libs/data_structures/vector/vectorVoid.h"
 
 /*// тесты с битовыми множествами
@@ -1231,7 +1232,7 @@ void test() {
     test_bitset();
     test_ordered_array_set();
     test_unordered_array_set();
-}*/
+}
 
 
 void test_pushBack_emptyVector() {
@@ -1307,24 +1308,353 @@ void test() {
     test_atVector_requestToLastElement();
     test_back_oneElementInVector();
     test_front_oneElementInVector();
+}*/
+
+void test_swapRows() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9,
+            },
+            3, 3
+    );
+
+    int *row1 = m.values[0];
+    int *row2 = m.values[1];
+    int *row3 = m.values[2];
+
+    swapRows(m, 0, 2);
+
+    assert(m.values[0] == row3);
+    assert(m.values[2] == row1);
+
+    freeMemMatrix(&m);
+}
+
+void test_swapColumns() {
+    int nRows = 3;
+    int nCols = 3;
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9,
+            },
+            nRows, nCols
+    );
+
+    int col1[nRows], col2[nRows], col3[nRows];
+    for (int i = 0; i < nRows; i++) {
+        col1[i] = m.values[i][0];
+        col2[i] = m.values[i][1];
+        col3[i] = m.values[i][2];
+    }
+
+    swapColumns(m, 0, 2);
+
+    for (int i = 0; i < nRows; i++) {
+        assert(m.values[i][0] == col3[i]);
+        assert(m.values[i][2] == col1[i]);
+    }
+
+    freeMemMatrix(&m);
+}
+
+int rowSumCriteria(int *row, int nCols) {
+    int sum = 0;
+    for (int i = 0; i < nCols; i++) {
+        sum += row[i];
+    }
+
+    return sum;
+}
+
+void test_insertionSortRowsMatrixByRowCriteria() {
+    int nRows = 4;
+    int nCols = 3;
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    4, 5, 6,
+                    1, 2, 3,
+                    7, 8, 9,
+                    10, 11, 12,
+            },
+            nRows, nCols
+    );
+
+    int expectedOrder[] = {1, 4, 7, 10};
+
+    insertionSortRowsMatrixByRowCriteria(m, rowSumCriteria);
+
+    for (int i = 0; i < nRows; i++) {
+        assert(m.values[i][0] == expectedOrder[i]);
+    }
+
+    freeMemMatrix(&m);
+}
+
+int colSumCriteria(int *col, int nRows) {
+    int sum = 0;
+    for (int i = 0; i < nRows; ++i) {
+        sum += col[i];
+    }
+    return sum;
+}
+
+void test_selectionSortColsMatrixByColCriteria() {
+    int nRows = 3;
+    int nCols = 3;
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    4, 1, 7,
+                    5, 2, 8,
+                    6, 3, 9,
+            },
+            nRows, nCols
+    );
+
+    int expectedOrder[] = {1, 4, 7};
+
+    selectionSortColsMatrixByColCriteria(m, colSumCriteria);
+
+    for (int i = 0; i < nCols; i++) {
+        assert(m.values[0][i] == expectedOrder[i]);
+    }
+
+    freeMemMatrix(&m);
+}
+
+void test_isSquareMatrix() {
+    int nRows1 = 3;
+    int nCols1 = 3;
+    matrix m1 = getMemMatrix(nRows1, nCols1);
+    assert(isSquareMatrix(&m1) == 1);
+
+    int nRows2 = 2;
+    int nCols2 = 3;
+    matrix m2 = getMemMatrix(nRows2, nCols2);
+    assert(isSquareMatrix(&m2) == 0);
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_areTwoMatricesEqual() {
+    int nRows = 3;
+    int nCols = 3;
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 1,
+                    2, 1, 2,
+                    1, 2, 1,
+            },
+            nRows, nCols
+    );
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 1,
+                    2, 1, 2,
+                    1, 2, 1,
+            },
+            nRows, nCols
+    );
+    assert(areTwoMatricesEqual(&m1, &m2) == 1);
+
+    matrix m3 = createMatrixFromArray(
+            (int[]) {
+                    4, 1, 7,
+                    5, 2, 8,
+                    6, 3, 9,
+            },
+            nRows, nCols
+    );
+    matrix m4 = createMatrixFromArray(
+            (int[]) {
+                    1, 4, 7,
+                    2, 5, 8,
+                    3, 6, 9,
+            },
+            nRows, nCols
+    );
+    assert(areTwoMatricesEqual(&m3, &m4) == 0);
+
+    matrix m5 = createMatrixFromArray(
+            (int[]) {
+                    1, 4,
+                    2, 5,
+                    3, 6,
+            },
+            3, 2
+    );
+    matrix m6 = createMatrixFromArray(
+            (int[]) {
+                    1, 4, 7,
+                    2, 5, 8,
+            },
+            2, 3
+    );
+
+    assert(areTwoMatricesEqual(&m5, &m6) == 0);
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+    freeMemMatrix(&m3);
+    freeMemMatrix(&m4);
+    freeMemMatrix(&m5);
+    freeMemMatrix(&m6);
+}
+
+void test_isEMatrix() {
+    int nRows = 3;
+    int nCols = 3;
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0,
+                    0, 1, 0,
+                    0, 0, 1,
+            },
+            nRows, nCols
+    );
+    assert(isEMatrix(&m1) == 1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 4, 7,
+                    2, 5, 8,
+                    3, 6, 9,
+            },
+            nRows, nCols
+    );
+    assert(isEMatrix(&m2) == 0);
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_isSymmetricMatrix() {
+    int nRows = 3;
+    int nCols = 3;
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 4,
+                    2, 1, 6,
+                    4, 6, 1,
+            },
+            nRows, nCols
+    );
+    assert(isSymmetricMatrix(&m1) == 1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 4, 7,
+                    2, 5, 8,
+                    3, 6, 9,
+            },
+            nRows, nCols
+    );
+    assert(isSymmetricMatrix(&m2) == 0);
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test_transposeSquareMatrix() {
+    int n = 3;
+    matrix m = getMemMatrix(n, n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            m.values[i][j] = i * n + j;
+        }
+    }
+
+    transposeSquareMatrix(&m);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            assert(m.values[i][j] == j * n + i);
+        }
+    }
+
+    freeMemMatrix(&m);
+}
+
+void test_transposeMatrix() {
+    int nRows = 3;
+    int nCols = 4;
+    matrix m = getMemMatrix(nRows, nCols);
+    for (int i = 0; i < nRows; ++i) {
+        for (int j = 0; j < nCols; ++j) {
+            m.values[i][j] = i * nCols + j;
+        }
+    }
+
+    transposeMatrix(&m);
+
+    assert(m.nRows == nCols);
+    assert(m.nCols == nRows);
+    for (int i = 0; i < nCols; ++i) {
+        for (int j = 0; j < nRows; ++j) {
+            assert(m.values[i][j] == j * nCols + i);
+        }
+    }
+
+    freeMemMatrix(&m);
+}
+
+void test_getMinValuePos() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    4, 1, 7,
+                    5, 2, 8,
+                    6, 3, 9,
+            },
+            3, 3
+    );
+
+    position expectedPos = {0, 1};
+    position minPos = getMinValuePos(m);
+
+    assert(minPos.rowIndex == expectedPos.rowIndex && minPos.colIndex == expectedPos.colIndex);
+
+    freeMemMatrix(&m);
+}
+
+void test_getMaxValuePos() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    4, 1, 7,
+                    5, 2, 8,
+                    6, 3, 9,
+            },
+            3, 3
+    );
+
+    position expectedPos = {2, 2};
+    position maxPos = getMaxValuePos(m);
+
+    assert(maxPos.rowIndex == expectedPos.rowIndex && maxPos.colIndex == expectedPos.colIndex);
+
+    freeMemMatrix(&m);
+}
+
+void test() {
+    test_swapRows();
+    test_swapColumns();
+    test_insertionSortRowsMatrixByRowCriteria();
+    test_selectionSortColsMatrixByColCriteria();
+    test_isSquareMatrix();
+    test_areTwoMatricesEqual();
+    test_isEMatrix();
+    test_isSymmetricMatrix();
+    test_transposeSquareMatrix();
+    test_transposeMatrix();
+    test_getMinValuePos();
+    test_getMaxValuePos();
 }
 
 int main() {
-    //test();
-
-    size_t n;
-    scanf("%zd", &n);
-    vectorVoid v = createVectorV(0, sizeof(float));
-    for (int i = 0; i < n; i++) {
-        float x;
-        scanf("%f", &x);
-        pushBackV(&v, &x);
-    }
-    for (int i = 0; i < n; i++) {
-        float x;
-        getVectorValueV(&v, i, &x);
-        printf("%f ", x);
-    }
+    test();
 
     return 0;
 }

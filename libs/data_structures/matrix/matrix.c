@@ -171,7 +171,12 @@ bool isSquareMatrix(matrix *m) {
 }
 
 bool areTwoMatricesEqual(matrix *m1, matrix *m2) {
-    return memcmp(m1->values, m2->values, sizeof(int *) * m1->nRows) == 0;
+    if (m1->nRows != m2->nRows || m1->nCols != m2->nCols) {
+        return 0;
+    }
+    size_t dataSize = sizeof(int) * m1->nRows * m1->nCols;
+
+    return memcmp(m1->values[0], m2->values[0], dataSize) == 0;
 }
 
 bool isEMatrix(matrix *m) {
@@ -293,4 +298,32 @@ position getMaxValuePos(matrix m) {
     }
 
     return maxPos;
+}
+
+matrix createMatrixFromArray(const int *a, int nRows, int nCols) {
+    matrix m = getMemMatrix(nRows, nCols);
+
+    int k = 0;
+    for (int i = 0; i < nRows; i++) {
+        for (int j = 0; j < nCols; j++) {
+            m.values[i][j] = a[k++];
+        }
+    }
+
+    return m;
+}
+
+matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t nRows, size_t nCols) {
+    matrix *ms = getMemArrayOfMatrices(nMatrices, nRows, nCols);
+
+    int l = 0;
+    for (size_t k = 0; k < nMatrices; k++) {
+        for (size_t i = 0; i < nRows; i++) {
+            for (size_t j = 0; j < nCols; j++) {
+                ms[k].values[i][j] = values[l++];
+            }
+        }
+    }
+
+    return ms;
 }
