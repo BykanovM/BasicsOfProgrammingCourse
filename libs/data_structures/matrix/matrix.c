@@ -260,3 +260,37 @@ void transposeMatrix(matrix *m) {
     m->nCols = transposed.nCols;
     m->values = transposed.values;
 }
+
+position getMinValuePos(matrix m) {
+    int minValue = m.values[0][0];
+    position minPos = {0, 0};
+
+    for (int i = 0; i < m.nRows; i++) {
+        for (int j = 0; j < m.nCols; j++) {
+            if (m.values[i][j] < minValue) {
+                minValue = m.values[i][j];
+                minPos.rowIndex = i;
+                minPos.colIndex = j;
+            }
+        }
+    }
+
+    return minPos;
+}
+
+position getMaxValuePos(matrix m) {
+    int maxValue = m.values[0][0];
+    position maxPos = {0, 0};
+
+    for (int i = 0; i < m.nRows; i++) {
+        for (int j = 0; j < m.nCols; j++) {
+            if (m.values[i][j] > maxValue) {
+                maxValue = m.values[i][j];
+                maxPos.rowIndex = i;
+                maxPos.colIndex = j;
+            }
+        }
+    }
+
+    return maxPos;
+}
