@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <assert.h>
 #include "../../data_structures/matrix/matrix.h"
 
 matrix getMemMatrix(int nRows, int nCols) {
@@ -76,5 +77,26 @@ void outputMatrices(matrix *ms, int nMatrices) {
     for (int i = 0; i < nMatrices; i++) {
         outputMatrix(ms[i]);
         printf("\n");
+    }
+}
+
+void swapRows(matrix m, int i1, int i2) {
+    assert((i1 >= 0 && i1 < m.nRows) && "i1 out of bounds");
+    assert((i2 >= 0 && i2 < m.nRows) && "i2 out of bounds");
+
+    int *temp = m.values[i1];
+    m.values[i1] = m.values[i2];
+    m.values[i2] = temp;
+}
+
+void swapColumns(matrix m, int j1, int j2) {
+    assert(j1 >= 0 && j1 < m.nCols && "j1 out of bound");
+    assert(j2 >= 0 && j2 < m.nCols && "j2 out of bounds");
+
+    int temp;
+    for (int i = 0; i < m.nRows; i++) {
+        temp = m.values[i][j1];
+        m.values[i][j1] = m.values[i][j2];
+        m.values[i][j2] = temp;
     }
 }
