@@ -1231,7 +1231,7 @@ void test() {
     test_bitset();
     test_ordered_array_set();
     test_unordered_array_set();
-}
+}*/
 
 
 void test_pushBack_emptyVector() {
@@ -1307,7 +1307,7 @@ void test() {
     test_atVector_requestToLastElement();
     test_back_oneElementInVector();
     test_front_oneElementInVector();
-}*/
+}
 
 int main() {
     //test();

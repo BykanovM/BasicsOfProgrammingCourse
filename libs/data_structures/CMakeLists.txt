@@ -7,6 +7,10 @@ add_library(data_structures
         ordered_array_set/ordered_array_set.h
         vector/vector.c
         vector/vector.h
-        vector/vectorVoid.h
         vector/vectorVoid.c
+        vector/vectorVoid.h
+        matrix/matrix.c
+        matrix/matrix.h
 )
+
+target_link_libraries(data_structures algorithms)
