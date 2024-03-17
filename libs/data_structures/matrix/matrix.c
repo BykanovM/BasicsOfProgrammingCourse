@@ -209,3 +209,54 @@ bool isSymmetricMatrix(matrix *m) {
 
     return 1;
 }
+
+void transposeSquareMatrix(matrix *m) {
+    if (!isSquareMatrix(m)) {
+        fprintf(stderr, "not square matrix\n");
+        return;
+    }
+    for (int i = 0; i < m->nRows; i++) {
+        for (int j = i + 1; j < m->nCols; j++) {
+            int temp = m->values[i][j];
+            m->values[i][j] = m->values[j][i];
+            m->values[j][i] = temp;
+        }
+    }
+}
+
+void transposeMatrix(matrix *m) {
+    matrix transposed;
+    transposed.nRows = m->nCols;
+    transposed.nCols = m->nRows;
+    transposed.values = (int **) malloc(sizeof(int *) * transposed.nRows);
+    if (transposed.values == NULL) {
+        fprintf(stderr, "bad alloc\n");
+        return;
+    }
+    for (int i = 0; i < transposed.nRows; i++) {
+        transposed.values[i] = (int *) malloc(sizeof(int) * transposed.nCols);
+        if (transposed.values[i] == NULL) {
+            fprintf(stderr, "bad alloc\n");
+            for (int j = 0; j < i; j++) {
+                free(transposed.values[j]);
+            }
+            free(transposed.values);
+            return;
+        }
+    }
+
+    for (int i = 0; i < m->nRows; i++) {
+        for (int j = 0; j < m->nCols; j++) {
+            transposed.values[j][i] = m->values[i][j];
+        }
+    }
+
+    for (int i = 0; i < m->nRows; i++) {
+        free(m->values[i]);
+    }
+    free(m->values);
+
+    m->nRows = transposed.nRows;
+    m->nCols = transposed.nCols;
+    m->values = transposed.values;
+}
