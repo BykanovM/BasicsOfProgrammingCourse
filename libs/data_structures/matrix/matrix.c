@@ -90,8 +90,8 @@ void swapRows(matrix m, int i1, int i2) {
 }
 
 void swapColumns(matrix m, int j1, int j2) {
-    assert(j1 >= 0 && j1 < m.nCols && "j1 out of bound");
-    assert(j2 >= 0 && j2 < m.nCols && "j2 out of bounds");
+    assert((j1 >= 0 && j1 < m.nCols) && "j1 out of bound");
+    assert((j2 >= 0 && j2 < m.nCols) && "j2 out of bounds");
 
     int temp;
     for (int i = 0; i < m.nRows; i++) {
@@ -99,4 +99,68 @@ void swapColumns(matrix m, int j1, int j2) {
         m.values[i][j1] = m.values[i][j2];
         m.values[i][j2] = temp;
     }
+}
+
+void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int)) {
+    int *criteriaValues = (int *) malloc(sizeof(int) * m.nRows);
+    if (criteriaValues == NULL) {
+        fprintf(stderr, "bad alloc\n");
+        exit(1);
+    }
+    for (int i = 0; i < m.nRows; i++) {
+        criteriaValues[i] = criteria(m.values[i], m.nCols);
+    }
+    for (int i = 1; i < m.nRows; i++) {
+        int key = criteriaValues[i];
+        int *tempRow = m.values[i];
+        int j = i - 1;
+        while (j >= 0 && criteriaValues[j] > key) {
+            criteriaValues[j + 1] = criteriaValues[j];
+            m.values[j + 1] = m.values[j];
+            j = j - 1;
+        }
+        criteriaValues[j + 1] = key;
+        m.values[j + 1] = tempRow;
+    }
+    free(criteriaValues);
+}
+
+void selectionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int)) {
+    int *criteriaValues = (int *) malloc(sizeof(int) * m.nCols);
+    if (criteriaValues == NULL) {
+        fprintf(stderr, "bad alloc\n");
+        exit(1);
+    }
+    for (int j = 0; j < m.nCols; j++) {
+        int *col = (int *) malloc(sizeof(int) * m.nRows);
+        if (col == NULL) {
+            fprintf(stderr, "bad alloc\n");
+            exit(1);
+        }
+        for (int i = 0; i < m.nRows; i++) {
+            col[i] = m.values[i][j];
+        }
+        criteriaValues[j] = criteria(col, m.nRows);
+        free(col);
+    }
+    for (int i = 0; i < m.nCols - 1; i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < m.nCols; j++) {
+            if (criteriaValues[j] < criteriaValues[minIndex]) {
+                minIndex = j;
+            }
+        }
+        if (minIndex != i) {
+            for (int k = 0; k < m.nRows; k++) {
+                int temp = m.values[k][i];
+                m.values[k][i] = m.values[k][minIndex];
+                m.values[k][minIndex] = temp;
+            }
+            int tempCriteria = criteriaValues[i];
+            criteriaValues[i] = criteriaValues[minIndex];
+            criteriaValues[minIndex] = tempCriteria;
+        }
+    }
+
+    free(criteriaValues);
 }
