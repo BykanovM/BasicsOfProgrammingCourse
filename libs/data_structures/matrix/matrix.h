@@ -126,4 +126,13 @@ long long findSumOfMaxesOfPseudoDiagonal(matrix m);
 //возвращает минимальный элемент матрицы в выделенной области
 int getMinInArea(matrix m);
 
+//возвращает расстояние от точки до начала координат
+float getDistance(int *a, int n);
+
+//функция для сравнения расстояний от точек до начала координат
+int compareDistances(int *point, int n);
+
+//выполняет сортировку точек по неубыванию их расстояний до начала координат
+void sortByDistances(matrix m);
+
 #endif //ARRAY_MATRIX_H

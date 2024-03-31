@@ -1823,6 +1823,29 @@ void test_getMinInArea() {
     freeMemMatrix(&m);
 }
 
+void testSortByDistances() {
+    int points[][3] = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9},
+            {10, 11, 12}
+    };
+    size_t nPoints = sizeof(points) / sizeof(points[0]);
+
+    matrix m = createMatrixFromArray((int *)points, nPoints, 3);
+
+    sortByDistances(m);
+
+    float prevDistance = 0.0;
+    for (size_t i = 0; i < nPoints; ++i) {
+        float distance = getDistance(points[i], 3);
+        assert(distance >= prevDistance);
+        prevDistance = distance;
+    }
+
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_swapRowsWithMinMax();
     test_sortRowsByMaxElement();
@@ -1832,6 +1855,7 @@ void test() {
     test_isMutuallyInverseMatrices();
     test_findSumOfMaxesOfPseudoDiagonal();
     test_getMinInArea();
+    testSortByDistances();
 }
 
 int main() {

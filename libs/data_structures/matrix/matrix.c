@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <assert.h>
 #include <string.h>
+#include <math.h>
 #include "../../data_structures/matrix/matrix.h"
 
 matrix getMemMatrix(int nRows, int nCols) {
@@ -533,4 +534,20 @@ int getMinInArea(matrix m) {
     }
 
     return minVal;
+}
+
+float getDistance(int *a, int n) {
+    float distance = 0.0;
+    for (int i = 0; i < n; ++i) {
+        distance += a[i] * a[i];
+    }
+    return sqrt(distance);
+}
+
+int compareDistances(int *point, int n) {
+    return getDistance(point, n);
+}
+
+void sortByDistances(matrix m) {
+    insertionSortRowsMatrixByRowCriteria(m, compareDistances);
 }
