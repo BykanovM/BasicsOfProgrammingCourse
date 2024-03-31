@@ -1692,8 +1692,36 @@ void test_swapRowsWithMinMax() {
     freeMemMatrix(&m2);
 }
 
+void test_sortRowsByMaxElement() {
+    matrix m1 = getMemMatrix(3, 3);
+    m1.values[0][0] = 5; m1.values[0][1] = 2; m1.values[0][2] = 3;
+    m1.values[1][0] = 4; m1.values[1][1] = 8; m1.values[1][2] = 6;
+    m1.values[2][0] = 1; m1.values[2][1] = 7; m1.values[2][2] = 9;
+
+    sortRowsByMaxElement(m1);
+
+    assert(m1.values[0][0] == 5 && m1.values[0][1] == 2 && m1.values[0][2] == 3);
+    assert(m1.values[1][0] == 4 && m1.values[1][1] == 8 && m1.values[1][2] == 6);
+    assert(m1.values[2][0] == 1 && m1.values[2][1] == 7 && m1.values[2][2] == 9);
+
+    matrix m2 = getMemMatrix(3, 3);
+    m2.values[0][0] = 1; m2.values[0][1] = 7; m2.values[0][2] = 9;
+    m2.values[1][0] = 4; m2.values[1][1] = 8; m2.values[1][2] = 6;
+    m2.values[2][0] = 5; m2.values[2][1] = 2; m2.values[2][2] = 3;
+
+    sortRowsByMaxElement(m2);
+
+    assert(m2.values[0][0] == 5 && m2.values[0][1] == 2 && m2.values[0][2] == 3);
+    assert(m2.values[1][0] == 4 && m2.values[1][1] == 8 && m2.values[1][2] == 6);
+    assert(m2.values[2][0] == 1 && m2.values[2][1] == 7 && m2.values[2][2] == 9);
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
 void test() {
     test_swapRowsWithMinMax();
+    test_sortRowsByMaxElement();
 }
 
 int main() {
