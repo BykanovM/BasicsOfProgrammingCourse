@@ -167,4 +167,12 @@ void printMatrixsWithMinNorm(matrix *matrices, int nMatrices);
 
 int getNSpecialElement2(matrix m);
 
+double getScalarProduct(int *a, int *b, int n);
+
+double getVectorLength(int *a, int n);
+
+double getCosine(int *a, int *b, int n);
+
+int getVectorIndexWithMaxAngle(matrix m, int *v);
+
 #endif //ARRAY_MATRIX_H

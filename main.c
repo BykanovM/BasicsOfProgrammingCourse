@@ -1959,6 +1959,17 @@ void test_getNSpecialElement2() {
     freeMemMatrix(&m1);
 }
 
+void test_getVectorIndexWithMaxAngle() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {1, 5, 4,
+                     6, 2, 3,
+                     2, 5, 2},
+            3, 3
+    );
+    int v[3] = {1, 1, 1};
+    assert(getVectorIndexWithMaxAngle(m1, v) == 1);
+}
+
 void test() {
     test_swapRowsWithMinMax();
     test_sortRowsByMaxElement();
@@ -1975,6 +1986,7 @@ void test() {
     test_countNonDescendingRowsMatrices();
     test_countZeroRows();
     test_getNSpecialElement2();
+    test_getVectorIndexWithMaxAngle();
 }
 
 int main() {
