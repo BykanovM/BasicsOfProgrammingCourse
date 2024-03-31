@@ -1876,6 +1876,23 @@ void test_getNSpecialElement() {
     freeMemMatrix(&m);
 }
 
+void test_swapPenultimateRow() {
+    matrix m = createMatrixFromArray(
+            (int[]) {1, 2, 3,
+                     4, 5, 6,
+                     7, 8, 1},
+            3, 3
+    );
+
+    swapPenultimateRow(m);
+
+    assert(m.values[1][0] == 1);
+    assert(m.values[1][1] == 4);
+    assert(m.values[1][2] == 7);
+
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_swapRowsWithMinMax();
     test_sortRowsByMaxElement();
@@ -1888,6 +1905,7 @@ void test() {
     testSortByDistances();
     test_countEqClassesByRowsSum();
     test_getNSpecialElement();
+    test_swapPenultimateRow();
 }
 
 int main() {

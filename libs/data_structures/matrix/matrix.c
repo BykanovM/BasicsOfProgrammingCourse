@@ -620,3 +620,27 @@ int getNSpecialElement(matrix m) {
 
     return nSpecial;
 }
+
+void swapPenultimateRow(matrix m) {
+    if (m.nRows < 2 || m.nCols < 1) {
+        fprintf(stderr, "Matrix size is too small\n");
+        return;
+    }
+
+    int minCol = 0;
+    int minVal = m.values[0][0];
+    for (int j = 1; j < m.nCols; j++) {
+        if (m.values[m.nRows - 1][j] < minVal) {
+            minVal = m.values[m.nRows - 1][j];
+            minCol = j;
+        }
+    }
+
+    int temp = m.values[m.nRows - 2][minCol];
+
+    for (int i = 0; i < m.nCols; i++) {
+        m.values[m.nRows - 2][i] = m.values[i][minCol];
+    }
+
+    m.values[m.nRows - 2][m.nCols - 2] = temp;
+}
