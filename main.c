@@ -1308,7 +1308,7 @@ void test() {
     test_atVector_requestToLastElement();
     test_back_oneElementInVector();
     test_front_oneElementInVector();
-}*/
+}
 
 void test_swapRows() {
     matrix m = createMatrixFromArray(
@@ -1651,6 +1651,49 @@ void test() {
     test_transposeMatrix();
     test_getMinValuePos();
     test_getMaxValuePos();
+}*/
+
+void test_swapRowsWithMinMax() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 8, 6,
+                    5, 7, 9,
+            },
+            3, 3
+    );
+
+    position minPos1 = {0, 0};
+    position maxPos1 = {2, 2};
+
+    swapRowsWithMinMax(m1);
+
+    assert(m1.values[minPos1.rowIndex][2] == 9);
+    assert(m1.values[maxPos1.rowIndex][0] == 1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    5, 2, 3,
+                    4, 8, 6,
+                    1, 7, 9,
+            },
+            3, 3
+    );
+
+    position minPos2 = {2, 0};
+    position maxPos2 = {2, 2};
+
+    swapRowsWithMinMax(m2);
+
+    assert(m2.values[minPos2.rowIndex][2] == 9);
+    assert(m2.values[maxPos2.rowIndex][0] == 1);
+
+    freeMemMatrix(&m1);
+    freeMemMatrix(&m2);
+}
+
+void test() {
+    test_swapRowsWithMinMax();
 }
 
 int main() {
