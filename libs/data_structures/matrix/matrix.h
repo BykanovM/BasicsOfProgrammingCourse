@@ -147,6 +147,12 @@ int countEqClassesByRowsSum(matrix m);
 //элемент "особым" , если он больше суммы остальных элементов своего столбца.
 int getNSpecialElement(matrix m);
 
-void swapPenultimateRow(matrix m/*, int n*/);
+void swapPenultimateRow(matrix m);
+
+bool isNonDescendingSorted(int *a, int n);
+
+bool hasAllNonDescendingRows(matrix m);
+
+int countNonDescendingRowsMatrices(matrix *ms, int nMatrix);
 
 #endif //ARRAY_MATRIX_H

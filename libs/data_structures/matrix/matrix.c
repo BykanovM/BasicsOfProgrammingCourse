@@ -644,3 +644,32 @@ void swapPenultimateRow(matrix m) {
 
     m.values[m.nRows - 2][m.nCols - 2] = temp;
 }
+
+bool isNonDescendingSorted(int *a, int n) {
+    for (int i = 0; i < n - 1; i++) {
+        if (a[i] > a[i + 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool hasAllNonDescendingRows(matrix m) {
+    for (int i = 0; i < m.nRows; i++) {
+        if (!isNonDescendingSorted(m.values[i], m.nCols)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int countNonDescendingRowsMatrices(matrix *ms, int nMatrix) {
+    int count = 0;
+    for (int i = 0; i < nMatrix; i++) {
+        if (hasAllNonDescendingRows(ms[i])) {
+            count++;
+        }
+    }
+
+    return count;
+}
