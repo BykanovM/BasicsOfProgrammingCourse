@@ -161,4 +161,8 @@ int countZeroRows(matrix m);
 
 void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix);
 
+int maxNorm(matrix m);
+
+void printMatrixsWithMinNorm(matrix *matrices, int nMatrices);
+
 #endif //ARRAY_MATRIX_H

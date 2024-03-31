@@ -722,3 +722,46 @@ void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
         }
     }
 }
+
+int maxNorm(matrix m) {
+    int maxAbs = 0;
+    for (int i = 0; i < m.nRows; i++) {
+        for (int j = 0; j < m.nCols; j++) {
+            int absValue = abs(m.values[i][j]);
+            if (absValue > maxAbs) {
+                maxAbs = absValue;
+            }
+        }
+    }
+
+    return maxAbs;
+}
+
+void printMatrixsWithMinNorm(matrix *matrices, int nMatrices) {
+    if (nMatrices == 0) {
+        printf("No matrices provided.\n");
+        return;
+    }
+
+    int minNorm = maxNorm(matrices[0]);
+    printf("Matrices with minimum norm:\n");
+    for (int i = 0; i < nMatrices; i++) {
+        int norm = maxNorm(matrices[i]);
+        if (norm < minNorm) {
+            minNorm = norm;
+        }
+    }
+
+    for (int i = 0; i < nMatrices; i++) {
+        if (maxNorm(matrices[i]) == minNorm) {
+            printf("Matrix %d:\n", i + 1);
+            for (int j = 0; j < matrices[i].nRows; j++) {
+                for (int k = 0; k < matrices[i].nCols; k++) {
+                    printf("%d ", matrices[i].values[j][k]);
+                }
+                printf("\n");
+            }
+            printf("\n");
+        }
+    }
+}
