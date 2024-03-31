@@ -1970,6 +1970,17 @@ void test_getVectorIndexWithMaxAngle() {
     assert(getVectorIndexWithMaxAngle(m1, v) == 1);
 }
 
+void test_getSpecialScalarProduct() {
+    matrix m = createMatrixFromArray(
+            (int[]) {1, 2, 3,
+                     4, 5, 6,
+                     7, 8, 9},
+            3, 3
+    );
+    long long result = getSpecialScalarProduct(m);
+    assert(result == 102);
+}
+
 void test() {
     test_swapRowsWithMinMax();
     test_sortRowsByMaxElement();
@@ -1987,6 +1998,7 @@ void test() {
     test_countZeroRows();
     test_getNSpecialElement2();
     test_getVectorIndexWithMaxAngle();
+    test_getSpecialScalarProduct();
 }
 
 int main() {

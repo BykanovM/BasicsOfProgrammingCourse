@@ -175,4 +175,8 @@ double getCosine(int *a, int *b, int n);
 
 int getVectorIndexWithMaxAngle(matrix m, int *v);
 
+long long getScalarProductRowAndCol(matrix m, int i, int j);
+
+long long getSpecialScalarProduct(matrix m);
+
 #endif //ARRAY_MATRIX_H
