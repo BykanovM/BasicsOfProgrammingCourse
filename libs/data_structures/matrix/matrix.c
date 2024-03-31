@@ -765,3 +765,28 @@ void printMatrixsWithMinNorm(matrix *matrices, int nMatrices) {
         }
     }
 }
+
+int getNSpecialElement2(matrix m) {
+    int count = 0;
+    for (int i = 0; i < m.nRows; i++) {
+        for (int j = 0; j < m.nCols; j++) {
+            bool isSpecial = true;
+            for (int k = 0; k < j; k++) {
+                if (m.values[i][k] >= m.values[i][j]) {
+                    isSpecial = false;
+                    break;
+                }
+            }
+            for (int k = j + 1; k < m.nCols; k++) {
+                if (m.values[i][k] <= m.values[i][j]) {
+                    isSpecial = false;
+                    break;
+                }
+            }
+            if (isSpecial) {
+                count++;
+            }
+        }
+    }
+    return count;
+}

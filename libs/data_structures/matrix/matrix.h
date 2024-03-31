@@ -165,4 +165,6 @@ int maxNorm(matrix m);
 
 void printMatrixsWithMinNorm(matrix *matrices, int nMatrices);
 
+int getNSpecialElement2(matrix m);
+
 #endif //ARRAY_MATRIX_H
