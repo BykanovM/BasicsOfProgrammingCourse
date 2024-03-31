@@ -430,3 +430,36 @@ void getSquareOfMatrixIfSymmetric(matrix *m) {
 
     *m = squaredMatrix;
 }
+
+bool isUnique(long long *a, int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (a[i] == a[j]) {
+                return 0;
+            }
+        }
+    }
+
+    return 1;
+}
+
+long long getSum(int *a, int n) {
+    long long sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += a[i];
+    }
+
+    return sum;
+}
+
+void transposeIfMatrixHasNotEqualSumOfRows(matrix *m) {
+    int n = m->nRows;
+    long long rowSums[n];
+    for (int i = 0; i < n; i++) {
+        rowSums[i] = getSum(m->values[i], m->nCols);
+    }
+
+    if (isUnique(rowSums, n)) {
+        transposeMatrix(m);
+    }
+}

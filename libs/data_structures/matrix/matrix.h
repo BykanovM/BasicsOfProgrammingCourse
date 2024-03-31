@@ -104,4 +104,13 @@ matrix mulMatrices(matrix m1, matrix m2);
 //заменяет матрицу m матрицей m^2, если она является симметричной
 void getSquareOfMatrixIfSymmetric(matrix *m);
 
+//возвращает значение ’истина’, если в a нет одинаковых элементов, ложь – в противном случае
+bool isUnique(long long *a, int n);
+
+//возвращает сумму элементов строки a длины n
+long long getSum(int *a, int n);
+
+//транспонирует матрицу, если среди сумм элементов строк матрицы нет равных
+void transposeIfMatrixHasNotEqualSumOfRows(matrix *m);
+
 #endif //ARRAY_MATRIX_H
