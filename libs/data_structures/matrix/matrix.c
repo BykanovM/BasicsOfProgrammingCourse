@@ -463,3 +463,13 @@ void transposeIfMatrixHasNotEqualSumOfRows(matrix *m) {
         transposeMatrix(m);
     }
 }
+
+bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
+    matrix product = mulMatrices(m1, m2);
+
+    bool result = isEMatrix(&product);
+
+    freeMemMatrix(&product);
+
+    return result;
+}

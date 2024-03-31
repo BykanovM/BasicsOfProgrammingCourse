@@ -113,4 +113,7 @@ long long getSum(int *a, int n);
 //транспонирует матрицу, если среди сумм элементов строк матрицы нет равных
 void transposeIfMatrixHasNotEqualSumOfRows(matrix *m);
 
+//возвращает значение ’истина’, если матрицы взаимно обратны, ложь – в противном случае
+bool isMutuallyInverseMatrices(matrix m1, matrix m2);
+
 #endif //ARRAY_MATRIX_H
