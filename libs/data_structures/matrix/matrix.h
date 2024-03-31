@@ -116,4 +116,9 @@ void transposeIfMatrixHasNotEqualSumOfRows(matrix *m);
 //возвращает значение ’истина’, если матрицы взаимно обратны, ложь – в противном случае
 bool isMutuallyInverseMatrices(matrix m1, matrix m2);
 
+int max(int a, int b);
+
+//возвращает сумму максимальных элементов всех псевдодиагоналей данной матрицы
+long long findSumOfMaxesOfPseudoDiagonal(matrix m);
+
 #endif //ARRAY_MATRIX_H
