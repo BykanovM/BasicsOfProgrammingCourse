@@ -135,4 +135,12 @@ int compareDistances(int *point, int n);
 //выполняет сортировку точек по неубыванию их расстояний до начала координат
 void sortByDistances(matrix m);
 
+int cmp_long_long(const void *pa, const void *pb);
+
+//возвращает количество уникальных элементов в отсортированном массиве
+int countNUnique(long long *a, int n);
+
+//возвращает количество классов эквивалентности по суммам строк матрицы
+int countEqClassesByRowsSum(matrix m);
+
 #endif //ARRAY_MATRIX_H

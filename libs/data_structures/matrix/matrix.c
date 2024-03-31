@@ -551,3 +551,50 @@ int compareDistances(int *point, int n) {
 void sortByDistances(matrix m) {
     insertionSortRowsMatrixByRowCriteria(m, compareDistances);
 }
+
+int cmp_long_long(const void *pa, const void *pb) {
+    const long long *a = pa;
+    const long long *b = pb;
+    return (*a > *b) - (*a < *b);
+}
+
+int countNUnique(long long *a, int n) {
+    if (n == 0) {
+        return 0;
+    }
+    int count = 1;
+    for (int i = 1; i < n; i++) {
+        if (a[i] != a[i - 1]) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+int countEqClassesByRowsSum(matrix m) {
+    int nRows = m.nRows;
+    int nCols = m.nCols;
+
+    long long *rowSums = (long long *)malloc(sizeof(long long) * nRows);
+    if (rowSums == NULL) {
+        fprintf(stderr, "bad alloc\n");
+        exit(1);
+    }
+
+    for (int i = 0; i < nRows; i++) {
+        long long sum = 0;
+        for (int j = 0; j < nCols; j++) {
+            sum += m.values[i][j];
+        }
+        rowSums[i] = sum;
+    }
+
+    qsort(rowSums, nRows, sizeof(long long), cmp_long_long);
+
+    int uniqueSumCount = countNUnique(rowSums, nRows);
+
+    free(rowSums);
+
+    return uniqueSumCount;
+}
