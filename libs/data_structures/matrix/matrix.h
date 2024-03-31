@@ -98,4 +98,10 @@ void sortRowsByMaxElement(matrix m);
 //Упорядочивает столбцы матрицы по неубыванию минимальных элементов столбцов
 void sortColsByMinElement(matrix m);
 
+//возвращает матрицу, являющуюся результатом умножения матрицы m1 на матрицу m2
+matrix mulMatrices(matrix m1, matrix m2);
+
+//заменяет матрицу m матрицей m^2, если она является симметричной
+void getSquareOfMatrixIfSymmetric(matrix *m);
+
 #endif //ARRAY_MATRIX_H

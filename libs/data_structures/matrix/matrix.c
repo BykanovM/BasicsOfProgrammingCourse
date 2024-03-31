@@ -400,3 +400,33 @@ void sortColsByMinElement(matrix m) {
 
     free(minValues);
 }
+
+matrix mulMatrices(matrix m1, matrix m2) {
+    assert(m1.nCols == m2.nRows);
+
+    matrix result = getMemMatrix(m1.nRows, m2.nCols);
+
+    for (int i = 0; i < m1.nRows; i++) {
+        for (int j = 0; j < m2.nCols; j++) {
+            result.values[i][j] = 0;
+            for (int k = 0; k < m1.nCols; k++) {
+                result.values[i][j] += m1.values[i][k] * m2.values[k][j];
+            }
+        }
+    }
+
+    return result;
+}
+
+void getSquareOfMatrixIfSymmetric(matrix *m) {
+    if (!isSymmetricMatrix(m)) {
+        fprintf(stderr, "matrix is not symmetric\n");
+        return;
+    }
+
+    matrix squaredMatrix = mulMatrices(*m, *m);
+
+    freeMemMatrix(m);
+
+    *m = squaredMatrix;
+}

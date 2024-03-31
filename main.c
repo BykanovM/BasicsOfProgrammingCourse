@@ -1734,10 +1734,26 @@ void test_sortColsByMinElement() {
     freeMemMatrix(&m);
 }
 
+void test_getSquareOfMatrixIfSymmetric() {
+    matrix m = getMemMatrix(3, 3);
+    m.values[0][0] = 1; m.values[0][1] = 2; m.values[0][2] = 3;
+    m.values[1][0] = 2; m.values[1][1] = 4; m.values[1][2] = 5;
+    m.values[2][0] = 3; m.values[2][1] = 5; m.values[2][2] = 6;
+
+    getSquareOfMatrixIfSymmetric(&m);
+
+    assert(m.values[0][0] == 14 && m.values[0][1] == 25 && m.values[0][2] == 31);
+    assert(m.values[1][0] == 25 && m.values[1][1] == 45 && m.values[1][2] == 56);
+    assert(m.values[2][0] == 31 && m.values[2][1] == 56 && m.values[2][2] == 70);
+
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_swapRowsWithMinMax();
     test_sortRowsByMaxElement();
     test_sortColsByMinElement();
+    test_getSquareOfMatrixIfSymmetric();
 }
 
 int main() {
