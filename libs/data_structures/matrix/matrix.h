@@ -89,7 +89,13 @@ void swapRowsWithMinMax(matrix m);
 //возвращает наибоьший элемент в строке матрицы
 int getMax(int *a, int n);
 
+//возвращает наменьший элемент в строке матрицы
+int getMin(int *a, int n);
+
 //упорядочивает строки матрицы по неубыванию наибольших элементов строк
 void sortRowsByMaxElement(matrix m);
+
+//Упорядочивает столбцы матрицы по неубыванию минимальных элементов столбцов
+void sortColsByMinElement(matrix m);
 
 #endif //ARRAY_MATRIX_H

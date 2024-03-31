@@ -1719,9 +1719,25 @@ void test_sortRowsByMaxElement() {
     freeMemMatrix(&m2);
 }
 
+void test_sortColsByMinElement() {
+    matrix m = getMemMatrix(3, 3);
+    m.values[0][0] = 3; m.values[0][1] = 5; m.values[0][2] = 2;
+    m.values[1][0] = 2; m.values[1][1] = 5; m.values[1][2] = 1;
+    m.values[2][0] = 6; m.values[2][1] = 1; m.values[2][2] = 4;
+
+    sortColsByMinElement(m);
+
+    assert(m.values[0][0] == 5 && m.values[0][1] == 2 && m.values[0][2] == 3);
+    assert(m.values[1][0] == 5 && m.values[1][1] == 1 && m.values[1][2] == 2);
+    assert(m.values[2][0] == 1 && m.values[2][1] == 4 && m.values[2][2] == 6);
+
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_swapRowsWithMinMax();
     test_sortRowsByMaxElement();
+    test_sortColsByMinElement();
 }
 
 int main() {
