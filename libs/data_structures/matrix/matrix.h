@@ -118,7 +118,12 @@ bool isMutuallyInverseMatrices(matrix m1, matrix m2);
 
 int max(int a, int b);
 
+int min(int a, int b);
+
 //возвращает сумму максимальных элементов всех псевдодиагоналей данной матрицы
 long long findSumOfMaxesOfPseudoDiagonal(matrix m);
+
+//возвращает минимальный элемент матрицы в выделенной области
+int getMinInArea(matrix m);
 
 #endif //ARRAY_MATRIX_H
