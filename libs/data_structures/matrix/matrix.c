@@ -345,6 +345,17 @@ int getMax(int *a, int n) {
     return max;
 }
 
+int getMin(int *a, int n) {
+    int min = a[0];
+    for (int i = 1; i < n; ++i) {
+        if (a[i] < min) {
+            min = a[i];
+        }
+    }
+
+    return min;
+}
+
 void sortRowsByMaxElement(matrix m) {
     int *maxValues = (int *)malloc(m.nRows * sizeof(int));
     for (int i = 0; i < m.nRows; i++) {
@@ -363,4 +374,29 @@ void sortRowsByMaxElement(matrix m) {
     }
 
     free(maxValues);
+}
+
+void sortColsByMinElement(matrix m) {
+    int *minValues = (int *)malloc(m.nCols * sizeof(int));
+    for (int j = 0; j < m.nCols; j++) {
+        int *col = (int *)malloc(m.nRows * sizeof(int));
+        for (int i = 0; i < m.nRows; i++) {
+            col[i] = m.values[i][j];
+        }
+        minValues[j] = getMin(col, m.nRows);
+        free(col);
+    }
+
+    for (int j = 0; j < m.nCols - 1; j++) {
+        for (int k = 0; k < m.nCols - j - 1; k++) {
+            if (minValues[k] > minValues[k + 1]) {
+                swapColumns(m, k, k + 1);
+                int temp = minValues[k];
+                minValues[k] = minValues[k + 1];
+                minValues[k + 1] = temp;
+            }
+        }
+    }
+
+    free(minValues);
 }
