@@ -1861,6 +1861,21 @@ void test_countEqClassesByRowsSum() {
     freeMemMatrix(&m);
 }
 
+void test_getNSpecialElement() {
+    matrix m = createMatrixFromArray(
+            (int[]) {3, 5, 5, 4,
+                     2, 3, 6, 7,
+                     12, 2, 1, 2},
+            3, 4
+    );
+
+    int nSpecial = getNSpecialElement(m);
+
+    assert(nSpecial == 2);
+
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_swapRowsWithMinMax();
     test_sortRowsByMaxElement();
@@ -1872,6 +1887,7 @@ void test() {
     test_getMinInArea();
     testSortByDistances();
     test_countEqClassesByRowsSum();
+    test_getNSpecialElement();
 }
 
 int main() {

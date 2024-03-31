@@ -143,4 +143,8 @@ int countNUnique(long long *a, int n);
 //возвращает количество классов эквивалентности по суммам строк матрицы
 int countEqClassesByRowsSum(matrix m);
 
+//возвращает количество "особых" элементов матрицы, считая
+//элемент "особым" , если он больше суммы остальных элементов своего столбца.
+int getNSpecialElement(matrix m);
+
 #endif //ARRAY_MATRIX_H
