@@ -2115,6 +2115,19 @@ void test_strcmp() {
     assert(strcmp(str9, str10) < 0);
 }
 
+void test_copy() {
+    const char *source1 = "";
+    char destination1[10] = "Hello";
+    char *result1 = copy(source1, source1, destination1);
+    assert(result1 == destination1);
+
+    const char *source2 = "World";
+    char destination2[10] = "Hello";
+    char *result2 = copy(source2, source2 + 5, destination2 + 5);
+    assert(strcmp(destination2, "HelloWorld") == 0);
+    assert(result2 == destination2 + 10);
+}
+
 void test() {
     test_strlen_();
     test_find();
