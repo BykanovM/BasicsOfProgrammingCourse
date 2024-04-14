@@ -2129,6 +2129,20 @@ void test_copy() {
     assert(result2 == destination2 + 10);
 }
 
+void test_copyIf() {
+    char source1[] = "Hello123World";
+    char destination1[20] = "";
+    char *result1 = copyIf(source1, source1 + 13, destination1, isalpha);
+    assert(strcmp(destination1, "HelloWorld") == 0);
+    assert(result1 == destination1 + 10);
+
+    char source2[] = "12345abc";
+    char destination2[20] = "";
+    char *result2 = copyIf(source2, source2 + 8, destination2, isdigit);
+    assert(strcmp(destination2, "12345") == 0);
+    assert(result2 == destination2 + 5);
+}
+
 void test() {
     test_strlen_();
     test_find();
@@ -2138,6 +2152,7 @@ void test() {
     test_findSpaceReverse();
     test_strcmp();
     test_copy();
+    test_copyIf();
 }
 
 int main() {
