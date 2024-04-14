@@ -2061,11 +2061,30 @@ void test_findSpace() {
     assert(*result4 == '\t');
 }
 
+void test_findNonSpaceReverse() {
+    char str1[] = "   ";
+    char *result1 = findNonSpaceReverse(str1 + 2, str1);
+    assert(result1 == str1);
+
+    char str2[] = "  Hello";
+    char *result2 = findNonSpaceReverse(str2 + 6, str2);
+    assert(*result2 == 'o');
+
+    char str3[] = "World";
+    char *result3 = findNonSpaceReverse(str3 + 5, str3);
+    assert(result3 == str3 + 5);
+
+    char str4[] = " \t\n";
+    char *result4 = findNonSpaceReverse(str4 + 2, str4);
+    assert(*result4 == '\n');
+}
+
 void test() {
     test_strlen_();
     test_find();
     test_findNonSpace();
     test_findSpace();
+    test_findNonSpaceReverse();
 }
 
 int main() {
