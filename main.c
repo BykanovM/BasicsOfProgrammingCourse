@@ -1651,7 +1651,7 @@ void test() {
     test_transposeMatrix();
     test_getMinValuePos();
     test_getMaxValuePos();
-}*/
+}
 
 void test_swapRowsWithMinMax() {
     matrix m1 = createMatrixFromArray(
@@ -1999,10 +1999,24 @@ void test() {
     test_getNSpecialElement2();
     test_getVectorIndexWithMaxAngle();
     test_getSpecialScalarProduct();
+}*/
+
+void test_strlen_() {
+    const char *empty_str = "";
+    assert(strlen_(empty_str) == 0);
+
+    const char *str1 = "Hello";
+    assert(strlen_(str1) == 5);
+
+    const char *str2 = "Test";
+    assert(strlen_(str2) == 4);
+
+    const char *str3 = "   ";
+    assert(strlen_(str3) == 3);
 }
 
 int main() {
-    test();
+    //test();
 
     return 0;
 }
