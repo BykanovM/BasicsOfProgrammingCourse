@@ -1,8 +1,7 @@
-//
-// Created by bykan on 14.04.2024.
-//
-
 #ifndef ARRAY_STRING__H
 #define ARRAY_STRING__H
+
+//возвращает количество символов в строке не считая ноль-символ.
+size_t strlen_(const char *begin);
 
 #endif //ARRAY_STRING__H
