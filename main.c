@@ -2079,12 +2079,27 @@ void test_findNonSpaceReverse() {
     assert(result4 == str4);
 }
 
+void test_findSpaceReverse() {
+    char str1[] = "   ";
+    char *result1 = findSpaceReverse(str1 + 2, str1);
+    assert(result1 == str1 + 2);
+
+    char str2[] = "Hello   ";
+    char *result2 = findSpaceReverse(str2 + 6, str2);
+    assert(result2 == str2 + 6);
+
+    char str3[] = "World";
+    char *result3 = findSpaceReverse(str3 + 5, str3);
+    assert(result3 == str3);
+}
+
 void test() {
     test_strlen_();
     test_find();
     test_findNonSpace();
     test_findSpace();
     test_findNonSpaceReverse();
+    test_findSpaceReverse();
 }
 
 int main() {
