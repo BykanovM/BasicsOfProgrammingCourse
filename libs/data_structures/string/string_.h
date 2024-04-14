@@ -37,4 +37,9 @@ int strcmp(const char *lhs, const char *rhs);
 //Возвращает указатель на следующий свободный фрагмент памяти в destination
 char* copy(const char *beginSource, const char *endSource, char *beginDestination);
 
+//записывает по адресу beginDestination элементы из фрагмента памяти начиная с beginSource
+//заканчивая endSource, удовлетворяющие функции-предикату f. Функция
+//возвращает указатель на следующий свободный для записи фрагмент в памяти
+char* copyIf(char *beginSource, const char *endSource, char *beginDestination, int (*f)(int));
+
 #endif //ARRAY_STRING__H
