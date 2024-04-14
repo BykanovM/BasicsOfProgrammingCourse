@@ -2046,7 +2046,7 @@ void test_findNonSpace() {
 void test_findSpace() {
     char str1[] = "   ";
     char *result1 = findSpace(str1);
-    assert(*result1 == '\0');
+    assert(*result1 == ' ');
 
     char str2[] = "Hello";
     char *result2 = findSpace(str2);
@@ -2058,13 +2058,14 @@ void test_findSpace() {
 
     char str4[] = "\t\t\n";
     char *result4 = findSpace(str4);
-    assert(*result4 == '\0');
+    assert(*result4 == '\t');
 }
 
 void test() {
     test_strlen_();
     test_find();
     test_findNonSpace();
+    test_findSpace();
 }
 
 int main() {
