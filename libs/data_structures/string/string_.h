@@ -42,4 +42,9 @@ char* copy(const char *beginSource, const char *endSource, char *beginDestinatio
 //возвращает указатель на следующий свободный для записи фрагмент в памяти
 char* copyIf(char *beginSource, const char *endSource, char *beginDestination, int (*f)(int));
 
+//записывает по адресу beginDestination элементы из фрагмента памяти начиная с rbeginSource
+//заканчивая rendSource, удовлетворяющие функции-предикату f.
+//Функция возвращает значение beginDestination по окончанию работы функции
+char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int));
+
 #endif //ARRAY_STRING__H
