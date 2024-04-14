@@ -5,7 +5,7 @@
 #include "libs/data_structures/unordered_array_set/unordered_array_set.h"
 #include "libs/data_structures/ordered_array_set/ordered_array_set.h"
 #include "libs/data_structures/matrix/matrix.h"
-#include "libs/data_structures/vector/vectorVoid.h"
+#include "libs/data_structures/string/string_.h"
 
 /*// тесты с битовыми множествами
 typedef unsigned int uint;
@@ -2015,8 +2015,12 @@ void test_strlen_() {
     assert(strlen_(str3) == 3);
 }
 
+void test() {
+    test_strlen_();
+}
+
 int main() {
-    //test();
+    test();
 
     return 0;
 }
