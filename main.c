@@ -2143,6 +2143,20 @@ void test_copyIf() {
     assert(result2 == destination2 + 5);
 }
 
+void test_copyIfReverse() {
+    char source1[] = "Hello123World";
+    char destination1[20] = "__________";
+    char *result1 = copyIfReverse(source1 + 13, source1, destination1 + 10, isalpha);
+    assert(strcmp(destination1, "HelloWorld") == 0);
+    assert(result1 == destination1);
+
+    char source2[] = "12345abc";
+    char destination2[20] = "__________";
+    char *result2 = copyIfReverse(source2 + 8, source2, destination2 + 5, isdigit);
+    assert(strcmp(destination2, "12345_____") == 0);
+    assert(result2 == destination2);
+}
+
 void test() {
     test_strlen_();
     test_find();
@@ -2153,6 +2167,7 @@ void test() {
     test_strcmp();
     test_copy();
     test_copyIf();
+    test_copyIfReverse();
 }
 
 int main() {
