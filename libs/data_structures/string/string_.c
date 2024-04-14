@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 #include "../../data_structures/string/string_.h"
 
 size_t strlen_(const char *begin) {
@@ -15,5 +16,12 @@ char *find(char *begin, char *end, int ch) {
         begin++;
     }
 
+    return begin;
+}
+
+char *findNonSpace(char *begin) {
+    while (*begin != '\0' && isspace(*begin)) {
+        begin++;
+    }
     return begin;
 }

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "libs/algorithms/array/array.h"
 #include "libs/data_structures/bitset/bitset.h"
 #include "libs/data_structures/unordered_array_set/unordered_array_set.h"
