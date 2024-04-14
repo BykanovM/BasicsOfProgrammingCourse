@@ -1,6 +1,7 @@
 #include <stdio.h>
 //#include <string.h>
 #include <ctype.h>
+#include <memory.h>
 #include "libs/algorithms/array/array.h"
 #include "libs/data_structures/bitset/bitset.h"
 #include "libs/data_structures/unordered_array_set/unordered_array_set.h"
@@ -2124,7 +2125,7 @@ void test_copy() {
     const char *source2 = "World";
     char destination2[10] = "Hello";
     char *result2 = copy(source2, source2 + 5, destination2 + 5);
-    assert(strcmp(destination2, "HelloWorld") == 0);
+    assert(strcmp(destination2 + 5, "WorldHello") == 0);
     assert(result2 == destination2 + 10);
 }
 
@@ -2136,6 +2137,7 @@ void test() {
     test_findNonSpaceReverse();
     test_findSpaceReverse();
     test_strcmp();
+    test_copy();
 }
 
 int main() {

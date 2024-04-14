@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <memory.h>
 #include "../../data_structures/string/string_.h"
 
 size_t strlen_(const char *begin) {
@@ -58,4 +59,10 @@ int strcmp(const char *lhs, const char *rhs) {
     }
 
     return *lhs - *rhs;
+}
+
+char *copy(const char *beginSource, const char *endSource, char *beginDestination) {
+    size_t size = endSource - beginSource;
+    memcpy(beginDestination, beginSource, size);
+    return beginDestination + size;
 }
