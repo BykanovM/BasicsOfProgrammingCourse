@@ -2043,6 +2043,24 @@ void test_findNonSpace() {
     assert(*result3 == 'W');
 }
 
+void test_findSpace() {
+    char str1[] = "   ";
+    char *result1 = findSpace(str1);
+    assert(*result1 == '\0');
+
+    char str2[] = "Hello";
+    char *result2 = findSpace(str2);
+    assert(*result2 == '\0');
+
+    char str3[] = "   World";
+    char *result3 = findSpace(str3);
+    assert(*result3 == ' ');
+
+    char str4[] = "\t\t\n";
+    char *result4 = findSpace(str4);
+    assert(*result4 == '\0');
+}
+
 void test() {
     test_strlen_();
     test_find();
