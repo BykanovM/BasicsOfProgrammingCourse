@@ -2028,9 +2028,24 @@ void test_find() {
     assert(*result3 == 'o');
 }
 
+void test_findNonSpace() {
+    char str1[] = "   ";
+    char *result1 = findNonSpace(str1);
+    assert(*result1 == '\0');
+
+    char str2[] = "   Hello";
+    char *result2 = findNonSpace(str2);
+    assert(*result2 == 'H');
+
+    char str3[] = "\t\tWorld";
+    char *result3 = findNonSpace(str3);
+    assert(*result3 == 'W');
+}
+
 void test() {
     test_strlen_();
     test_find();
+    test_findNonSpace();
 }
 
 int main() {
