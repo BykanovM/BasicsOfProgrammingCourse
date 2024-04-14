@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <string.h>
+//#include <string.h>
 #include <ctype.h>
 #include "libs/algorithms/array/array.h"
 #include "libs/data_structures/bitset/bitset.h"
@@ -2093,6 +2093,28 @@ void test_findSpaceReverse() {
     assert(result3 == str3);
 }
 
+void test_strcmp() {
+    const char *str1 = "";
+    const char *str2 = "";
+    assert(strcmp(str1, str2) == 0);
+
+    const char *str3 = "";
+    const char *str4 = "Hello";
+    assert(strcmp(str3, str4) < 0);
+
+    const char *str5 = "World";
+    const char *str6 = "";
+    assert(strcmp(str5, str6) > 0);
+
+    const char *str7 = "Hello";
+    const char *str8 = "Hello";
+    assert(strcmp(str7, str8) == 0);
+
+    const char *str9 = "Hello";
+    const char *str10 = "World";
+    assert(strcmp(str9, str10) < 0);
+}
+
 void test() {
     test_strlen_();
     test_find();
@@ -2100,6 +2122,7 @@ void test() {
     test_findSpace();
     test_findNonSpaceReverse();
     test_findSpaceReverse();
+    test_strcmp();
 }
 
 int main() {
