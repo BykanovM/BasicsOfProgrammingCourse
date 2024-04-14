@@ -2076,7 +2076,7 @@ void test_findNonSpaceReverse() {
 
     char str4[] = " \t\n";
     char *result4 = findNonSpaceReverse(str4 + 2, str4);
-    assert(*result4 == '\n');
+    assert(result4 == str4);
 }
 
 void test() {

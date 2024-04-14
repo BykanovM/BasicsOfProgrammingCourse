@@ -17,4 +17,9 @@ char *findNonSpace(char *begin);
 //начиная с адреса begin или на первый ноль-символ
 char *findSpace(char *begin);
 
+//возвращает указатель на первый пробельный символ справа, расположенный
+//на ленте памяти, начиная с rbegin и заканчивая rend. Если символ не найден,
+//возвращается адрес rend
+char *findNonSpaceReverse(char *rbegin, const char *rend);
+
 #endif //ARRAY_STRING__H
