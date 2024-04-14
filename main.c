@@ -2015,8 +2015,22 @@ void test_strlen_() {
     assert(strlen_(str3) == 3);
 }
 
+void test_find() {
+    char str1[] = "Hello";
+    char *result1 = find(str1, str1 + 5, 'e');
+    assert(*result1 == 'e');
+
+    char *result2 = find(str1, str1 + 5, 'x');
+    assert(result2 == str1 + 5);
+
+    char str2[] = "World";
+    char *result3 = find(str2, str2 + 5, 'o');
+    assert(*result3 == 'o');
+}
+
 void test() {
     test_strlen_();
+    test_find();
 }
 
 int main() {
