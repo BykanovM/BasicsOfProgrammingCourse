@@ -725,3 +725,28 @@ void balanceString(char* s1, size_t n1, char* s2, size_t n2) {
         complement_string(s2, s1, n1 - n2);
     }
 }
+
+#define LETTERS_SHIFT 97
+
+bool isEveryWordLetterInString(char* string, WordDescriptor word) {
+    bool include[26] = {0};
+
+    char* start = string;
+    char* end = getEndOfString(string);
+
+    while (start != end) {
+        if (isalpha(*start))
+            include[*start - LETTERS_SHIFT] = 1;
+
+        start++;
+    }
+
+    while (word.begin != word.end) {
+        if (!include[*word.begin - LETTERS_SHIFT])
+            return 0;
+
+        word.begin++;
+    }
+
+    return 1;
+}

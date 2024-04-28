@@ -122,4 +122,8 @@ void removePalindromeWord(char* s);
 
 void balanceString(char* s1, size_t n1, char* s2, size_t n2);
 
+bool isEveryWordLetterInString(char* string, WordDescriptor word);
+
+int getWord(char *beginSearch, WordDescriptor *word);
+
 #endif //ARRAY_STRING__H
