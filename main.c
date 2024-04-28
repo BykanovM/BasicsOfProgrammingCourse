@@ -2359,6 +2359,26 @@ void test_getWordBeforeFirstWordWithA() {
     assert(getWordBeforeFirstWordWithA(s4, &word) == NOT_FOUND_A_WORD_WITH_A);
 }
 
+void test_getLastCommonWord() {
+    char s1[] = "Hello World";
+    char s2[] = "World Around";
+
+    char dest1[MAX_WORD_SIZE] = "";
+    WordDescriptor word1 = getLastCommonWord(s1, s2);
+
+    WordDescriptorToString(word1, dest1);
+
+    ASSERT_STRING("World", dest1);
+
+    char s3[] = "Hello World";
+    char s4[] = "Hi Globe";
+
+    char dest2[MAX_WORD_SIZE] = "";
+    WordDescriptor word2 = getLastCommonWord(s3, s4);
+
+    assert(word2.begin == NULL && word2.end == NULL);
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2382,6 +2402,7 @@ void test() {
     test_interleaveWords();
     test_changeWordOrder();
     test_getWordBeforeFirstWordWithA();
+    test_getLastCommonWord();
 }
 
 int main() {
