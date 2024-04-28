@@ -413,3 +413,44 @@ void changeWordOrder(char *s) {
 
     freeString(stringBuffer_);
 }
+
+bool isLettersInWord(WordDescriptor word, char letters) {
+    char* start = word.begin;
+
+    while (start != word.end) {
+        if (*start == letters)
+            return true;
+
+        start++;
+    }
+
+    return false;
+}
+
+WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char* s, WordDescriptor* word) {
+    char* begin_search = s;
+
+    WordDescriptor word1;
+    if (!getWord(begin_search, &word1)) {
+        return EMPTY_STRING;
+    }
+    begin_search = word1.end + 1;
+
+    if (isLettersInWord(word1, 'a') || isLettersInWord(word1, 'A')) {
+        return FIRST_WORD_WITH_A;
+    }
+
+    WordDescriptor word2;
+    while (getWord(begin_search, &word2)) {
+        if (isLettersInWord(word2, 'a') || isLettersInWord(word2, 'A')) {
+            *word = word1;
+            return WORD_FOUND;
+        }
+
+        word1 = word2;
+
+        begin_search = word2.end + 1;
+    }
+
+    return NOT_FOUND_A_WORD_WITH_A;
+}

@@ -90,4 +90,13 @@ char *interleaveWords(char *s1, char *s2, char *result);
 
 void changeWordOrder(char *s);
 
+typedef enum WordBeforeFirstWordWithAReturnCode {
+    EMPTY_STRING,
+    NOT_FOUND_A_WORD_WITH_A,
+    FIRST_WORD_WITH_A,
+    WORD_FOUND
+} WordBeforeFirstWordWithAReturnCode;
+
+WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char* s, WordDescriptor* word);
+
 #endif //ARRAY_STRING__H
