@@ -2273,6 +2273,44 @@ void test_areWordsLexicographicallyOrdered() {
     assert(areWordsLexicographicallyOrdered(sentence2) == 0);
 }
 
+void test_printWordsReversed() {
+    BagOfWords bag;
+    char sentence[] = "apple banana cherry date";
+    char expectedOutput[] = "date\ncherry\nbanana\napple\n";
+    FILE *stream;
+    char buffer[1024];
+
+    getBagOfWords(&bag, sentence);
+
+    stream = fopen("output.txt", "w");
+    if (stream == NULL) {
+        fprintf(stderr, "Failed to open file for writing.\n");
+        return;
+    }
+
+    if (!freopen("output.txt", "w", stdout)) {
+        fprintf(stderr, "Failed to redirect stdout.\n");
+        fclose(stream);
+        return;
+    }
+
+    printWordsReversed(&bag);
+
+    fclose(stream);
+
+    stream = fopen("output.txt", "r");
+    if (stream == NULL) {
+        fprintf(stderr, "Failed to open file for reading.\n");
+        return;
+    }
+
+    fgets(buffer, sizeof(buffer), stream);
+
+    assert(strcmp(buffer, expectedOutput) == 0);
+
+    fclose(stream);
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2291,6 +2329,7 @@ void test() {
     test_replaceDigitsWithSpaces();
     test_replace();
     test_areWordsLexicographicallyOrdered();
+    test_printWordsReversed();
 }
 
 int main() {
