@@ -2513,6 +2513,38 @@ void test_balanceString() {
     ASSERT_STRING("cool 3d world", s8);
 }
 
+void test_isEveryWordLetterInString() {
+    char string1[] = "";
+    WordDescriptor word1;
+    getWord("", &word1);
+
+    assert(!isEveryWordLetterInString(string1, word1));
+
+    char string2[] = "word";
+    WordDescriptor word2;
+    getWord("", &word2);
+
+    assert(!isEveryWordLetterInString(string2, word2));
+
+    char string3[] = "";
+    WordDescriptor word3;
+    getWord("word", &word3);
+
+    assert(!isEveryWordLetterInString(string3, word3));
+
+    char string4[] = "abc";
+    WordDescriptor word4;
+    getWord("word", &word4);
+
+    assert(!isEveryWordLetterInString(string4, word4));
+
+    char string5[] = "world";
+    WordDescriptor word5;
+    getWord("word", &word5);
+
+    assert(isEveryWordLetterInString(string5, word5));
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2543,6 +2575,7 @@ void test() {
     test_getPrecedingWord();
     test_removePalindromeWord();
     test_balanceString();
+    test_isEveryWordLetterInString();
 }
 
 int main() {
