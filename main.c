@@ -2326,7 +2326,21 @@ void test_interleaveWords() {
     char result[33];
     interleaveWords(s1, s2, result);
 
-    assert(strcmp(result, expected) == 0);
+    ASSERT_STRING(expected, result);
+}
+
+void test_changeWordOrder() {
+    char s1[] = "";
+    changeWordOrder(s1);
+    ASSERT_STRING("", s1);
+
+    char s2[] = "hello world";
+    changeWordOrder(s2);
+    ASSERT_STRING("world hello", s2);
+
+    char s3[] = "word";
+    changeWordOrder(s3);
+    ASSERT_STRING("word", s3);
 }
 
 void test() {
@@ -2350,6 +2364,7 @@ void test() {
     //test_printWordsReversed();
     test_countPalindromes();
     test_interleaveWords();
+    test_changeWordOrder();
 }
 
 int main() {
