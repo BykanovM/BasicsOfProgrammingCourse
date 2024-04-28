@@ -2393,6 +2393,20 @@ void test_areEqualWordsInString() {
     assert(areEqualWordsInString(s4));
 }
 
+void test_areIdenticalWordsInString() {
+    char s1[] = "";
+    assert(!areIdenticalWordsInString(s1));
+
+    char s2[] = "word";
+    assert(!areIdenticalWordsInString(s2));
+
+    char s3[] = "Duplicate not in string";
+    assert(!areIdenticalWordsInString(s3));
+
+    char s4[] = "duplicate etacilpud";
+    assert(areIdenticalWordsInString(s4));
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2418,6 +2432,7 @@ void test() {
     test_getWordBeforeFirstWordWithA();
     test_getLastCommonWord();
     test_areEqualWordsInString();
+    test_areIdenticalWordsInString();
 }
 
 int main() {
