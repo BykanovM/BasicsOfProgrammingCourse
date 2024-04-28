@@ -116,4 +116,6 @@ bool areIdenticalWordsInString(char* s);
 
 void getWordExceptLast(char* source, char* dest);
 
+WordDescriptor getPrecedingWord(char* s1, char* s2);
+
 #endif //ARRAY_STRING__H

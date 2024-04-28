@@ -631,3 +631,42 @@ void getWordExceptLast(char* source, char* dest) {
 
     freeBag(&bag_);
 }
+
+WordDescriptor getPrecedingWord(char* s1, char* s2) {
+    char* begin_search_1 = s1;
+    char* begin_search_2 = s2;
+
+    while (getWordWithoutSpace(begin_search_1, &bag_.words[bag_.size])) {
+        begin_search_1 = bag_.words[bag_.size].end + 1;
+        bag_.size++;
+    }
+
+    while (getWordWithoutSpace(begin_search_2, &bag2_.words[bag2_.size])) {
+        begin_search_2 = bag2_.words[bag2_.size].end + 1;
+        bag2_.size++;
+    }
+
+    bool stop = 0;
+    WordDescriptor w;
+    WordDescriptor preceding_w = {.begin = NULL, .end = NULL};
+
+    for (size_t i = 1; i < bag_.size; i++) {
+        w = bag_.words[i];
+        for (size_t j = 0; j < bag2_.size; j++)
+            if (isWordEqual(w, bag2_.words[j])) {
+                stop = 1;
+                break;
+            }
+
+        if (stop) {
+            preceding_w = bag_.words[i - 1];
+            break;
+        }
+
+    }
+
+    freeBag(&bag_);
+    freeBag(&bag2_);
+
+    return preceding_w;
+}
