@@ -176,3 +176,41 @@ void replaceDigitsWithSpaces(char *s) {
 
     *bufferPtr = '\0';
 }
+
+void replace(char *source, char *w1, char *w2) {
+    size_t w1Size = strlen_(w1);
+    size_t w2Size = strlen_(w2);
+    WordDescriptor word1 = {w1, w1 + w1Size};
+    WordDescriptor word2 = {w2, w2 + w2Size};
+
+    char *readPtr, *recPtr;
+
+    if (w1Size >= w2Size) {
+        readPtr = source;
+        recPtr = source;
+    } else {
+        copy(source, source + strlen_(source), stringBuffer_);
+        readPtr = stringBuffer_;
+        recPtr = source;
+    }
+
+    while (*readPtr != '\0') {
+        WordDescriptor currentWord;
+        currentWord.begin = readPtr;
+        currentWord.end = findSpace(readPtr);
+
+        if (strcmp(currentWord.begin, word1.begin) == 0) {
+            recPtr = copy(word2.begin, word2.end, recPtr);
+            readPtr = currentWord.end;
+        } else {
+            recPtr = copy(currentWord.begin, currentWord.end, recPtr);
+            readPtr = currentWord.end;
+        }
+
+        if (*readPtr != '\0') {
+            *recPtr++ = *readPtr++;
+        }
+    }
+
+    *recPtr = '\0';
+}
