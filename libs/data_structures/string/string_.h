@@ -110,4 +110,6 @@ WordDescriptor getLastCommonWord(char* s1, char* s2);
 
 void WordDescriptorToString(WordDescriptor word, char* dest);
 
+bool areEqualWordsInString(char* s);
+
 #endif //ARRAY_STRING__H

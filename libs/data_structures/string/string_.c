@@ -536,3 +536,29 @@ void WordDescriptorToString(WordDescriptor word, char* dest) {
 
     *dest = '\0';
 }
+
+bool areEqualWordsInString(char* s) {
+    char* begin_buff = stringBuffer_;
+
+    copy(s, s + strlen_(s), stringBuffer_);
+
+    while (getWordWithoutSpace(begin_buff, &bag_.words[bag_.size])) {
+        begin_buff = bag_.words[bag_.size].end + 2;
+        bag_.size++;
+    }
+
+    freeString(stringBuffer_);
+
+    if (bag_.size <= 1)
+        return 0;
+
+    for (size_t i = 0; i < bag_.size; i++)
+        for (size_t j = i + 1; j < bag_.size; j++)
+            if (isWordEqual(bag_.words[i], bag_.words[j])) {
+                freeBag(&bag_);
+                return 1;
+            }
+
+    freeBag(&bag_);
+    return 0;
+}
