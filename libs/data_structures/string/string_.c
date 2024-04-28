@@ -114,3 +114,47 @@ void removeAdjacentEqualLetters(char *s) {
 
     *(++destination) = '\0';
 }
+
+char stringBuffer_[100];
+
+int getWord(char *beginSearch, WordDescriptor *word) {
+    word->begin = findNonSpace(beginSearch);
+    if (*word->begin == '\0')
+        return 0;
+    word->end = findSpace(word->begin);
+    return 1;
+}
+
+void digitToStart(WordDescriptor word) {
+    char *endStringBuffer = copy(word.begin, word.end, stringBuffer_);
+
+    char *recPosition = copyIfReverse(endStringBuffer - 1, stringBuffer_ - 1,
+                                      word.begin, isdigit);
+    copyIf(stringBuffer_, endStringBuffer, recPosition, isalpha);
+}
+
+void digitToEnd(WordDescriptor word) {
+    char *endStringBuffer = copy(word.begin, word.end, stringBuffer_);
+
+    char *recPosition = copyIf(endStringBuffer - 1, word.begin - 1,
+                               endStringBuffer, isdigit);
+    copyIf(word.begin, endStringBuffer, recPosition, isalpha);
+}
+
+void processString(char *beginString) {
+    char *beginSearch = beginString;
+    WordDescriptor word;
+    while (getWord(beginSearch, &word)) {
+        digitToStart(word);
+        beginSearch = word.end;
+    }
+}
+
+void processStringEnd(char *beginString) {
+    char *beginSearch = beginString;
+    WordDescriptor word;
+    while (getWord(beginSearch, &word)) {
+        digitToEnd(word);
+        beginSearch = word.end;
+    }
+}

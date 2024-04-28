@@ -1,6 +1,8 @@
 #ifndef ARRAY_STRING__H
 #define ARRAY_STRING__H
 
+extern char stringBuffer_[];
+
 //возвращает количество символов в строке не считая ноль-символ
 size_t strlen_(const char *begin);
 
@@ -53,5 +55,14 @@ void removeNonLetters(char *s);
 //Преобразует строку, оставляя только один символ
 //в каждой последовательности подряд идущих одинаковых символов
 void removeAdjacentEqualLetters(char *s);
+
+typedef struct WordDescriptor {
+    char *begin; // позиция начала слова
+    char *end; // позиция первого символа, после последнего символа слова
+} WordDescriptor;
+
+void processString(char *beginString);
+
+void processStringEnd(char *beginString);
 
 #endif //ARRAY_STRING__H
