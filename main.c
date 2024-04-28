@@ -2202,6 +2202,42 @@ void test_removeAdjacentEqualLetters() {
     ASSERT_STRING("Helo World!", s4);
 }
 
+void test_processString() {
+    char s1[] = "Hello123 World456!";
+    processString(s1);
+    ASSERT_STRING("123Hello 456World!", s1);
+
+    char s2[] = "This is a test string without digits.";
+    processString(s2);
+    ASSERT_STRING("This is a test string without digits.", s2);
+
+    char s3[] = "1234567890";
+    processString(s3);
+    ASSERT_STRING("1234567890", s3);
+
+    char s4[] = "";
+    processString(s4);
+    ASSERT_STRING("", s4);
+}
+
+void test_processStringEnd() {
+    char s1[] = "123Hello 456World!";
+    processString(s1);
+    ASSERT_STRING("Hello123 World456!", s1);
+
+    char s2[] = "This is a test string without digits.";
+    processString(s2);
+    ASSERT_STRING("This is a test string without digits.", s2);
+
+    char s3[] = "1234567890";
+    processString(s3);
+    ASSERT_STRING("1234567890", s3);
+
+    char s4[] = "";
+    processString(s4);
+    ASSERT_STRING("", s4);
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2215,6 +2251,8 @@ void test() {
     test_copyIfReverse();*/
     test_removeNonLetters();
     test_removeAdjacentEqualLetters();
+    test_processString();
+    test_processStringEnd();
 }
 
 int main() {
