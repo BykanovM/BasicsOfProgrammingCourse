@@ -82,10 +82,12 @@ void getBagOfWords(BagOfWords *bag, char *s);
 
 void printWordsReversed(BagOfWords *bag);
 
-int isPalindrome(char *word, size_t len);
+int isPalindrome(WordDescriptor* word);
 
 int countPalindromes(char *sentence);
 
 char *interleaveWords(char *s1, char *s2, char *result);
+
+void changeWordOrder(char *s);
 
 #endif //ARRAY_STRING__H

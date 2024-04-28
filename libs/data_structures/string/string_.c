@@ -118,6 +118,14 @@ void removeAdjacentEqualLetters(char *s) {
 
 char stringBuffer_[100];
 
+void freeString(char* string) {
+    char* ptr = string;
+    while (*ptr) {
+        *ptr = '\0';
+        ptr++;
+    }
+}
+
 int getWord(char *beginSearch, WordDescriptor *word) {
     word->begin = findNonSpace(beginSearch);
     if (*word->begin == '\0')
@@ -295,36 +303,59 @@ void printWordsReversed(BagOfWords *bag) {
     }
 }
 
-int isPalindrome(char *word, size_t len) {
-    for (int i = 0; i < len / 2; i++) {
-        if (word[i] != word[len - 1 - i]) {
+bool getWordReverse(char* r_begin, char* r_end, WordDescriptor* word) {
+    if (word->begin == r_end)
+        return false;
+
+    word->end = findNonSpaceReverse(r_begin, r_end);
+
+    word->begin = findNonSpaceReverse(r_begin, r_end);
+    word->begin = word->begin == r_end ? word->begin : word->begin + 1;
+
+    return true;
+}
+
+int getSeparateWord(char* begin_search, WordDescriptor* word) {
+    word->begin = findNonSpace(begin_search);
+    if (*word->begin == '\0')
+        return false;
+
+    word->end = findSpace(word->begin);
+
+    if (ispunct(*(word->end - 1)))
+        word->end--;
+
+    return true;
+}
+
+int isPalindrome(WordDescriptor* word) {
+    char* start = word->begin;
+    char* end = word->end - 1;
+
+    while (start < end) {
+        if (*start != *end)
             return 0;
-        }
+
+        start++;
+        end--;
     }
+
     return 1;
 }
 
 int countPalindromes(char *sentence) {
     int count = 0;
     char *start = sentence;
-    char *end;
+    WordDescriptor word;
 
-    while (*start != '\0') {
-        while (*start != '\0' && (*start == ' ' || *start == ',')) {
-            start++;
-        }
-
-        end = start;
-        while (*end != '\0' && *end != ',') {
-            end++;
-        }
-
-        size_t len = end - start;
-        if (isPalindrome(start, len)) {
+    while (getSeparateWord(start, &word)) {
+        if (isPalindrome(&word))
             count++;
-        }
 
-        start = end;
+        if (ispunct(*(word.end)))
+            word.end++;
+
+        start = word.end;
     }
 
     return count;
@@ -357,4 +388,28 @@ char *interleaveWords(char *s1, char *s2, char *result) {
     *resultPtr = '\0';
 
     return result;
+}
+
+void changeWordOrder(char *s) {
+    if (strlen_(s) == 0)
+        return;
+
+    char* rec_ptr = s;
+
+    char* r_buffer_begin = copy(s, s + strlen_(s), stringBuffer_) - 1;
+    char* r_buffer_end = stringBuffer_;
+
+   WordDescriptor word;
+    while (getWordReverse(r_buffer_begin, r_buffer_end, &word)) {
+        rec_ptr = copy(word.begin, word.end + 1, rec_ptr);
+        if (word.begin != r_buffer_end) {
+            *rec_ptr++ = ' ';
+        }
+
+        r_buffer_begin = word.begin - 2;
+    }
+
+    *rec_ptr = '\0';
+
+    freeString(stringBuffer_);
 }
