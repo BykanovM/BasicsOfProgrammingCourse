@@ -2311,6 +2311,13 @@ void test_printWordsReversed() {
     fclose(stream);
 }
 
+void test_countPalindromes() {
+    char sentence[] = "level, rotor, car, world";
+    int expected = 2;
+    int actual = countPalindromes(sentence);
+    assert(actual == expected);
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2330,6 +2337,7 @@ void test() {
     test_replace();
     test_areWordsLexicographicallyOrdered();
     test_printWordsReversed();
+    test_countPalindromes();
 }
 
 int main() {
