@@ -2256,6 +2256,16 @@ void test_replaceDigitsWithSpaces() {
     ASSERT_STRING("", s4);
 }
 
+void test_replace() {
+    char source[] = "Hello world! Hello people! Hello everyone!";
+    char expected[] = "Hi world! Hi people! Hi everyone!";
+    char w1[] = "Hello";
+    char w2[] = "Hi";
+
+    replace(source, w1, w2);
+    ASSERT_STRING(expected, source);
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2272,6 +2282,7 @@ void test() {
     test_processString();
     test_processStringEnd();
     test_replaceDigitsWithSpaces();
+    test_replace();
 }
 
 int main() {
