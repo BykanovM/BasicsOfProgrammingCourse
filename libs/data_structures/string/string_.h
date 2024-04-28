@@ -86,4 +86,6 @@ int isPalindrome(char *word, size_t len);
 
 int countPalindromes(char *sentence);
 
+char *interleaveWords(char *s1, char *s2, char *result);
+
 #endif //ARRAY_STRING__H

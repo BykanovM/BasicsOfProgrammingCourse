@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <ctype.h>
 #include <memory.h>
 #include "../../data_structures/string/string_.h"
@@ -327,4 +328,33 @@ int countPalindromes(char *sentence) {
     }
 
     return count;
+}
+
+char *interleaveWords(char *s1, char *s2, char *result) {
+    WordDescriptor word1, word2;
+    bool isW1Found, isW2Found;
+    char *resultPtr = result;
+
+    char *beginSearch1 = s1, *beginSearch2 = s2;
+    while ((isW1Found = getWord(beginSearch1, &word1)), (isW2Found = getWord(beginSearch2, &word2)), isW1Found || isW2Found) {
+        if (isW1Found) {
+            while (word1.begin != word1.end) {
+                *resultPtr++ = *word1.begin++;
+            }
+            *resultPtr++ = ' ';
+            beginSearch1 = word1.end;
+        }
+
+        if (isW2Found) {
+            while (word2.begin != word2.end) {
+                *resultPtr++ = *word2.begin++;
+            }
+            *resultPtr++ = ' ';
+            beginSearch2 = word2.end;
+        }
+    }
+
+    *resultPtr = '\0';
+
+    return result;
 }
