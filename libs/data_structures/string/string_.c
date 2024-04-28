@@ -90,3 +90,9 @@ char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDesti
 
     return beginDestination;
 }
+
+void removeNonLetters(char *s) {
+    char *endSource = s + strlen_(s);
+    char *destination = copyIf(s, endSource, s, isgraph);
+    *destination = '\0';
+}

@@ -47,4 +47,7 @@ char* copyIf(char *beginSource, const char *endSource, char *beginDestination, i
 //Функция возвращает значение beginDestination по окончанию работы функции
 char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int));
 
+//удаляет из строки все пробельные символы
+void removeNonLetters(char *s);
+
 #endif //ARRAY_STRING__H
