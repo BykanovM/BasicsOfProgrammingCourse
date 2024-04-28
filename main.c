@@ -2407,6 +2407,36 @@ void test_areIdenticalWordsInString() {
     assert(areIdenticalWordsInString(s4));
 }
 
+void test_getWordExceptLast() {
+    char source1[] = "";
+    char dest1[40] = "";
+
+    getWordExceptLast(source1, dest1);
+
+    ASSERT_STRING("", dest1);
+
+    char source2[] = "word";
+    char dest2[40] = "";
+
+    getWordExceptLast(source2, dest2);
+
+    ASSERT_STRING("", dest2);
+
+    char source3[] = "word map";
+    char dest3[40] = "";
+
+    getWordExceptLast(source3, dest3);
+
+    ASSERT_STRING("word", dest3);
+
+    char source4[] = "word map is map";
+    char dest4[40] = "";
+
+    getWordExceptLast(source4, dest4);
+
+    ASSERT_STRING("word is", dest4);
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2433,6 +2463,7 @@ void test() {
     test_getLastCommonWord();
     test_areEqualWordsInString();
     test_areIdenticalWordsInString();
+    test_getWordExceptLast();
 }
 
 int main() {
