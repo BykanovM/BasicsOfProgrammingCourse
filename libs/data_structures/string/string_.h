@@ -1,7 +1,11 @@
 #ifndef ARRAY_STRING__H
 #define ARRAY_STRING__H
 
-extern char stringBuffer_[];
+#define MAX_WORD_SIZE 30
+#define MAX_N_WORDS_IN_STRING 100
+#define MAX_STRING_SIZE 200
+
+extern char stringBuffer_[MAX_STRING_SIZE + 1];
 
 //возвращает количество символов в строке не считая ноль-символ
 size_t strlen_(const char *begin);
@@ -74,9 +78,12 @@ int areWordsEqual(WordDescriptor w1, WordDescriptor w2);
 int areWordsLexicographicallyOrdered(char *sentence);
 
 typedef struct BagOfWords {
-    WordDescriptor words[100];
+    WordDescriptor words[MAX_N_WORDS_IN_STRING];
     size_t size;
 } BagOfWords;
+
+extern BagOfWords bag_;
+extern BagOfWords bag2_;
 
 void getBagOfWords(BagOfWords *bag, char *s);
 
@@ -98,5 +105,9 @@ typedef enum WordBeforeFirstWordWithAReturnCode {
 } WordBeforeFirstWordWithAReturnCode;
 
 WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char* s, WordDescriptor* word);
+
+WordDescriptor getLastCommonWord(char* s1, char* s2);
+
+void WordDescriptorToString(WordDescriptor word, char* dest);
 
 #endif //ARRAY_STRING__H

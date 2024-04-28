@@ -116,7 +116,7 @@ void removeAdjacentEqualLetters(char *s) {
     *(++destination) = '\0';
 }
 
-char stringBuffer_[100];
+char stringBuffer_[MAX_STRING_SIZE + 1];
 
 void freeString(char* string) {
     char* ptr = string;
@@ -268,6 +268,9 @@ int areWordsLexicographicallyOrdered(char *sentence) {
     return 1;
 }
 
+BagOfWords bag_ = {.words = NULL, .size = 0};
+BagOfWords bag2_ = {.words = NULL, .size = 0};
+
 void getBagOfWords(BagOfWords *bag, char *s) {
     size_t i = 0;
     bag->size = 0;
@@ -292,6 +295,15 @@ void getBagOfWords(BagOfWords *bag, char *s) {
     }
 
     bag->size = i;
+}
+
+void freeBag(BagOfWords* bag) {
+    for (size_t i = 0; i < bag->size; i++) {
+        bag->words[i].begin = NULL;
+        bag->words[i].end = NULL;
+    }
+
+    bag->size = 0;
 }
 
 void printWordsReversed(BagOfWords *bag) {
@@ -453,4 +465,74 @@ WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char* s, WordDesc
     }
 
     return NOT_FOUND_A_WORD_WITH_A;
+}
+
+bool isWordEqual(const WordDescriptor word1, const WordDescriptor word2) {
+    char* begin1 = word1.begin;
+    char* begin2 = word2.begin;
+
+    while (begin1 < word1.end && begin2 < word2.end) {
+        if (*begin1 != *begin2)
+            return false;
+
+        begin1++;
+        begin2++;
+    }
+
+    if (word1.end - begin1 > 0 || word2.end - begin2 > 0)
+        return false;
+
+    return true;
+}
+
+bool getWordWithoutSpace(char* begin_search, WordDescriptor* word) {
+    word->begin = findNonSpace(begin_search);
+    if (*word->begin == '\0')
+        return false;
+
+    word->end = findSpace(word->begin) - 1;
+
+    return true;
+}
+
+WordDescriptor getLastCommonWord(char* s1, char* s2) {
+    char* begin_search_1 = s1;
+    char* begin_search_2 = s2;
+
+    while (getWordWithoutSpace(begin_search_1, &bag_.words[bag_.size])) {
+        begin_search_1 = bag_.words[bag_.size].end + 1;
+        bag_.size++;
+    }
+
+    while (getWordWithoutSpace(begin_search_2, &bag2_.words[bag2_.size])) {
+        begin_search_2 = bag2_.words[bag2_.size].end + 1;
+        bag2_.size++;
+    }
+
+    WordDescriptor word = {.begin = NULL, .end = NULL};
+    for (int i = (int) bag_.size - 1; i >= 0; i--)
+        for (int j = 0; j < bag2_.size; j++)
+            if (isWordEqual(bag_.words[i], bag2_.words[j])) {
+                word = bag_.words[i];
+
+                freeBag(&bag_);
+                freeBag(&bag2_);
+
+                return word;
+            }
+
+    return word;
+}
+
+void WordDescriptorToString(WordDescriptor word, char* dest) {
+    if (word.begin == NULL && word.end == NULL)
+        return;
+
+    while (word.begin <= word.end) {
+        *dest = *word.begin;
+        word.begin++;
+        dest++;
+    }
+
+    *dest = '\0';
 }
