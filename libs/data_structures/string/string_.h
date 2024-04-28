@@ -118,4 +118,6 @@ void getWordExceptLast(char* source, char* dest);
 
 WordDescriptor getPrecedingWord(char* s1, char* s2);
 
+void removePalindromeWord(char* s);
+
 #endif //ARRAY_STRING__H

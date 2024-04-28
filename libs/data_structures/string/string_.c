@@ -169,22 +169,39 @@ void processStringEnd(char *beginString) {
     }
 }
 
-void replaceDigitsWithSpaces(char *s) {
-    char *bufferPtr = s;
+char* getEndOfString(char* s) {
+    char* start = s;
+    while (*start != '\0')
+        start++;
 
-    while (*s != '\0') {
-        if (isdigit(*s)) {
-            int digit = *s - '0';
-            for (int j = 0; j < digit; j++) {
-                *bufferPtr++ = ' ';
+    return start;
+}
+
+void replaceDigitsWithSpaces(char *s) {
+    char* rec_ptr = s;
+    char* read_ptr = stringBuffer_;
+
+    char* end = getEndOfString(s);
+    char* end_in_buff = copy(s, end, stringBuffer_);
+    *end_in_buff = '\0';
+
+    while (*read_ptr != '\0') {
+        if (isdigit(*read_ptr))
+            for (int i = 0; i < *read_ptr - 48; i++) {
+                *rec_ptr = ' ';
+                rec_ptr++;
             }
-        } else {
-            *bufferPtr++ = *s;
+        else {
+            *rec_ptr = *read_ptr;
+            rec_ptr++;
         }
-        s++;
+
+        read_ptr++;
     }
 
-    *bufferPtr = '\0';
+    *rec_ptr = '\0';
+
+    freeString(stringBuffer_);
 }
 
 void replace(char *source, char *w1, char *w2) {
@@ -226,44 +243,30 @@ void replace(char *source, char *w1, char *w2) {
 }
 
 int areWordsEqual(WordDescriptor w1, WordDescriptor w2) {
-    while (w1.begin < w1.end && w2.begin < w2.end) {
-        if (*w1.begin != *w2.begin) {
-            return 0;
-        }
+    while (*w1.begin && (*w1.begin == *w2.begin)) {
         w1.begin++;
         w2.begin++;
     }
-    if (w1.begin == w1.end && w2.begin == w2.end) {
-        return 1;
-    } else {
-        return 0;
-    }
+
+    return *(const unsigned char*) w1.begin - *(const unsigned char*) w2.begin;
 }
 
 int areWordsLexicographicallyOrdered(char *sentence) {
     WordDescriptor prevWord, currWord;
-    prevWord.begin = sentence;
-    prevWord.end = sentence;
+    char* begin_search = sentence;
 
-    while (*prevWord.end != '\0') {
-        while (*prevWord.end != '\0' && isspace(*prevWord.end)) {
-            prevWord.end++;
-        }
-        if (*prevWord.end == '\0') {
-            break;
-        }
+    if (!getWord(begin_search, &prevWord))
+        return 1;
 
-        currWord.begin = prevWord.end;
-        while (*prevWord.end != '\0' && !isspace(*prevWord.end)) {
-            prevWord.end++;
-        }
-        currWord.end = prevWord.end;
+    begin_search = prevWord.end;
 
-        if (!areWordsEqual(prevWord, currWord)) {
+    while (getWord(begin_search, &currWord)) {
+        if (areWordsEqual(prevWord, currWord) <= 0)
+            prevWord = currWord;
+        else
             return 0;
-        }
 
-        prevWord = currWord;
+        begin_search = currWord.end;
     }
 
     return 1;
@@ -669,4 +672,25 @@ WordDescriptor getPrecedingWord(char* s1, char* s2) {
     freeBag(&bag2_);
 
     return preceding_w;
+}
+
+void removePalindromeWord(char* s) {
+    char* read_begin = stringBuffer_;
+    char* read_end = copy(s, s + strlen_(s), stringBuffer_);
+    char* rec_ptr = s;
+
+    WordDescriptor word;
+    while (getWord(read_begin, &word)) {
+        if (!isPalindrome(&word)) {
+            rec_ptr = copy(word.begin, word.end, rec_ptr);
+
+            if (word.end !=  read_end)
+                *rec_ptr++ = ' ';
+        }
+        read_begin = word.end + 1;
+    }
+
+    *rec_ptr = '\0';
+
+    freeString(stringBuffer_);
 }
