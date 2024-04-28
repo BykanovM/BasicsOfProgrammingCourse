@@ -293,3 +293,38 @@ void printWordsReversed(BagOfWords *bag) {
         printf("\n");
     }
 }
+
+int isPalindrome(char *word, size_t len) {
+    for (int i = 0; i < len / 2; i++) {
+        if (word[i] != word[len - 1 - i]) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int countPalindromes(char *sentence) {
+    int count = 0;
+    char *start = sentence;
+    char *end;
+
+    while (*start != '\0') {
+        while (*start != '\0' && (*start == ' ' || *start == ',')) {
+            start++;
+        }
+
+        end = start;
+        while (*end != '\0' && *end != ',') {
+            end++;
+        }
+
+        size_t len = end - start;
+        if (isPalindrome(start, len)) {
+            count++;
+        }
+
+        start = end;
+    }
+
+    return count;
+}

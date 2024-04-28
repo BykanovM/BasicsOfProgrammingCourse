@@ -82,4 +82,8 @@ void getBagOfWords(BagOfWords *bag, char *s);
 
 void printWordsReversed(BagOfWords *bag);
 
+int isPalindrome(char *word, size_t len);
+
+int countPalindromes(char *sentence);
+
 #endif //ARRAY_STRING__H
