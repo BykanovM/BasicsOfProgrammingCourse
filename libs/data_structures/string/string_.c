@@ -102,15 +102,15 @@ void removeAdjacentEqualLetters(char *s) {
         return;
     }
 
-    char *destination = s + 1;
+    char *destination = s;
+    char *source = s + 1;
 
-    while (*s != '\0') {
-        if (*s != *destination) {
-            *(++destination) = *++s;
-        } else {
-            s++;
+    while (*source != '\0') {
+        if (*source != *destination) {
+            *(++destination) = *source;
         }
+        source++;
     }
 
-    *destination = '\0';
+    *(++destination) = '\0';
 }

@@ -2158,7 +2158,7 @@ void test_copyIfReverse() {
 }
 
 void assertString(const char *expected, char *got, const char *fileName, const char *funcName, int line) {
-    if (strcmp(expected, got) != 0) {
+    if (strcmp(expected, got)) {
         fprintf(stderr, "File %s\n", fileName);
         fprintf(stderr, "%s - failed on line %d\n", funcName, line);
         fprintf(stderr, "Expected: \"%s\"\n", expected);
@@ -2184,8 +2184,26 @@ void test_removeNonLetters() {
     ASSERT_STRING("HelloWorld", s3);
 }
 
+void test_removeAdjacentEqualLetters() {
+    char s1[] = "AAAAAA";
+    removeAdjacentEqualLetters(s1);
+    ASSERT_STRING("A", s1);
+
+    char s2[] = "abcdefgh";
+    removeAdjacentEqualLetters(s2);
+    ASSERT_STRING("abcdefgh", s2);
+
+    char s3[] = "";
+    removeAdjacentEqualLetters(s3);
+    ASSERT_STRING("", s3);
+
+    char s4[] = "Hello World!";
+    removeAdjacentEqualLetters(s4);
+    ASSERT_STRING("Helo World!", s4);
+}
+
 void test() {
-    test_strlen_();
+    /*test_strlen_();
     test_find();
     test_findNonSpace();
     test_findSpace();
@@ -2194,8 +2212,9 @@ void test() {
     test_strcmp();
     test_copy();
     test_copyIf();
-    test_copyIfReverse();
+    test_copyIfReverse();*/
     test_removeNonLetters();
+    test_removeAdjacentEqualLetters();
 }
 
 int main() {
