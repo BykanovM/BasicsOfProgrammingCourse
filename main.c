@@ -2469,6 +2469,24 @@ void test_getPrecedingWord() {
     ASSERT_STRING("Hello", dest3);
 }
 
+void test_removePalindromeWord() {
+    char s1[] = "";
+    removePalindromeWord(s1);
+    ASSERT_STRING("", s1);
+
+    char s2[] = "Hello World";
+    removePalindromeWord(s2);
+    ASSERT_STRING("Hello World", s2);
+
+    char s3[] = "a b c d";
+    removePalindromeWord(s3);
+    ASSERT_STRING("", s3);
+
+    char s4[] = "radar level rotor";
+    removePalindromeWord(s4);
+    ASSERT_STRING("", s4);
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2484,9 +2502,9 @@ void test() {
     test_removeAdjacentEqualLetters();
     test_processString();
     test_processStringEnd();
-    //test_replaceDigitsWithSpaces();
+    test_replaceDigitsWithSpaces();
     test_replace();
-    //test_areWordsLexicographicallyOrdered();
+    test_areWordsLexicographicallyOrdered();
     //test_printWordsReversed();
     test_countPalindromes();
     test_interleaveWords();
@@ -2497,6 +2515,7 @@ void test() {
     test_areIdenticalWordsInString();
     test_getWordExceptLast();
     test_getPrecedingWord();
+    test_removePalindromeWord();
 }
 
 int main() {
