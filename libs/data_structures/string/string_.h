@@ -87,7 +87,7 @@ extern BagOfWords bag2_;
 
 void getBagOfWords(BagOfWords *bag, char *s);
 
-void printWordsReversed(BagOfWords *bag);
+void printWordsReversed(char* s);
 
 int isPalindrome(WordDescriptor* word);
 
@@ -119,5 +119,7 @@ void getWordExceptLast(char* source, char* dest);
 WordDescriptor getPrecedingWord(char* s1, char* s2);
 
 void removePalindromeWord(char* s);
+
+void balanceString(char* s1, size_t n1, char* s2, size_t n2);
 
 #endif //ARRAY_STRING__H

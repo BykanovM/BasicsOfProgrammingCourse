@@ -276,29 +276,14 @@ BagOfWords bag_ = {.words = NULL, .size = 0};
 BagOfWords bag2_ = {.words = NULL, .size = 0};
 
 void getBagOfWords(BagOfWords *bag, char *s) {
-    size_t i = 0;
+    char* begin_search = s;
     bag->size = 0;
 
-    while (*s != '\0' && isspace(*s)) {
-        s++;
+    while (getWord(begin_search, &bag->words[bag->size])) {
+        begin_search = bag->words[bag->size].end;
+
+        bag->size++;
     }
-
-    while (*s != '\0') {
-        bag->words[i].begin = s;
-
-        while (*s != '\0' && !isspace(*s)) {
-            s++;
-        }
-        bag->words[i].end = s;
-
-        while (*s != '\0' && isspace(*s)) {
-            s++;
-        }
-
-        i++;
-    }
-
-    bag->size = i;
 }
 
 void freeBag(BagOfWords* bag) {
@@ -310,13 +295,27 @@ void freeBag(BagOfWords* bag) {
     bag->size = 0;
 }
 
-void printWordsReversed(BagOfWords *bag) {
-    for (int i = bag->size - 1; i >= 0; i--) {
-        for (char *p = bag->words[i].begin; p < bag->words[i].end; p++) {
-            printf("%c", *p);
-        }
-        printf("\n");
+void printWord(WordDescriptor word) {
+    while (word.begin != word.end) {
+        printf("%c", *word.begin);
+        word.begin++;
     }
+
+    printf(" ");
+}
+
+void printWordsReversed(char* s) {
+    getBagOfWords(&bag_, s);
+
+    if (bag_.size >= 1) {
+        for (int i = (int) bag_.size - 1; i >= 0; i--) {
+            printWord(bag_.words[i]);
+        }
+    }
+
+    printf("\n");
+
+    freeBag(&bag_);
 }
 
 bool getWordReverse(char* r_begin, char* r_end, WordDescriptor* word) {
@@ -693,4 +692,36 @@ void removePalindromeWord(char* s) {
     *rec_ptr = '\0';
 
     freeString(stringBuffer_);
+}
+
+void complement_string(char* s1, char* s2, size_t n) {
+    char* begin_search = s2;
+
+    while (getWordWithoutSpace(begin_search, &bag_.words[bag_.size])) {
+        begin_search = bag_.words[bag_.size].end + 1;
+        bag_.size++;
+    }
+
+    char* rec_ptr = getEndOfString(s1);
+    *rec_ptr++ = ' ';
+
+    for (size_t i = bag_.size - n; i < bag_.size; i++) {
+        rec_ptr = copy(bag_.words[i].begin, bag_.words[i].end + 1, rec_ptr);
+        if (i != bag_.size - 1)
+            *rec_ptr++ = ' ';
+    }
+
+    *rec_ptr = '\0';
+
+    freeBag(&bag_);
+}
+
+
+void balanceString(char* s1, size_t n1, char* s2, size_t n2) {
+    if (n1 < n2) {
+        complement_string(s1, s2, n2 - n1);
+    }
+    if (n2 < n1) {
+        complement_string(s2, s1, n1 - n2);
+    }
 }
