@@ -2266,6 +2266,13 @@ void test_replace() {
     ASSERT_STRING(expected, source);
 }
 
+void test_areWordsLexicographicallyOrdered() {
+    char sentence1[] = "apple banana cherry date";
+    char sentence2[] = "apple banana date cherry";
+    assert(areWordsLexicographicallyOrdered(sentence1) == 1);
+    assert(areWordsLexicographicallyOrdered(sentence2) == 0);
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2283,6 +2290,7 @@ void test() {
     test_processStringEnd();
     test_replaceDigitsWithSpaces();
     test_replace();
+    test_areWordsLexicographicallyOrdered();
 }
 
 int main() {
