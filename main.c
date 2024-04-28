@@ -2379,6 +2379,20 @@ void test_getLastCommonWord() {
     assert(word2.begin == NULL && word2.end == NULL);
 }
 
+void test_areEqualWordsInString() {
+    char s1[] = "";
+    assert(!areEqualWordsInString(s1));
+
+    char s2[] = "word";
+    assert(!areEqualWordsInString(s2));
+
+    char s3[] = "Duplicate not in string";
+    assert(!areEqualWordsInString(s3));
+
+    char s4[] = "duplicate duplicate";
+    assert(areEqualWordsInString(s4));
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2403,6 +2417,7 @@ void test() {
     test_changeWordOrder();
     test_getWordBeforeFirstWordWithA();
     test_getLastCommonWord();
+    test_areEqualWordsInString();
 }
 
 int main() {
