@@ -602,3 +602,32 @@ bool areIdenticalWordsInString(char* s) {
 
     return 0;
 }
+
+void getWordExceptLast(char* source, char* dest) {
+    char* begin_search = source;
+
+    while (getWordWithoutSpace(begin_search, &bag_.words[bag_.size])) {
+        begin_search = bag_.words[bag_.size].end + 1;
+        bag_.size++;
+    }
+
+    if (bag_.size == 0) {
+        freeBag(&bag_);
+        return;
+    }
+
+    WordDescriptor last_word = bag_.words[bag_.size - 1];
+    char* rec_ptr = dest;
+
+    for (size_t i = 0; i < bag_.size - 1; i++) {
+        if (!isWordEqual(bag_.words[i], last_word)) {
+            rec_ptr = copy(bag_.words[i].begin, bag_.words[i].end + 1, rec_ptr);
+            if (i != bag_.size - 2)
+                *rec_ptr++ = ' ';
+        }
+    }
+
+    *rec_ptr = '\0';
+
+    freeBag(&bag_);
+}

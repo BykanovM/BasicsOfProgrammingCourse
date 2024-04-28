@@ -114,4 +114,6 @@ bool areEqualWordsInString(char* s);
 
 bool areIdenticalWordsInString(char* s);
 
+void getWordExceptLast(char* source, char* dest);
+
 #endif //ARRAY_STRING__H
