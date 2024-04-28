@@ -2343,6 +2343,22 @@ void test_changeWordOrder() {
     ASSERT_STRING("word", s3);
 }
 
+void test_getWordBeforeFirstWordWithA() {
+    WordDescriptor word;
+    char s1[] = "";
+    assert(getWordBeforeFirstWordWithA(s1, &word) == EMPTY_STRING);
+    char s2[] = "ABC";
+    assert(getWordBeforeFirstWordWithA(s2, &word) == FIRST_WORD_WITH_A);
+    char s3[] = "BC A";
+    assert(getWordBeforeFirstWordWithA(s3, &word) == WORD_FOUND);
+    char got[20];
+    copy(word.begin, word.end, got);
+    got[word.end - word.begin] = '\0';
+    ASSERT_STRING("bc", got);
+    char s4[] = "B Q WE YR OW IUWR";
+    assert(getWordBeforeFirstWordWithA(s4, &word) == NOT_FOUND_A_WORD_WITH_A);
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2365,6 +2381,7 @@ void test() {
     test_countPalindromes();
     test_interleaveWords();
     test_changeWordOrder();
+    test_getWordBeforeFirstWordWithA();
 }
 
 int main() {
