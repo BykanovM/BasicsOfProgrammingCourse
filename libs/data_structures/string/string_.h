@@ -73,4 +73,13 @@ int areWordsEqual(WordDescriptor w1, WordDescriptor w2);
 
 int areWordsLexicographicallyOrdered(char *sentence);
 
+typedef struct BagOfWords {
+    WordDescriptor words[100];
+    size_t size;
+} BagOfWords;
+
+void getBagOfWords(BagOfWords *bag, char *s);
+
+void printWordsReversed(BagOfWords *bag);
+
 #endif //ARRAY_STRING__H

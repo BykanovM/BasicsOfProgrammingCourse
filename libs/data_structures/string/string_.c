@@ -258,3 +258,38 @@ int areWordsLexicographicallyOrdered(char *sentence) {
 
     return 1;
 }
+
+void getBagOfWords(BagOfWords *bag, char *s) {
+    size_t i = 0;
+    bag->size = 0;
+
+    while (*s != '\0' && isspace(*s)) {
+        s++;
+    }
+
+    while (*s != '\0') {
+        bag->words[i].begin = s;
+
+        while (*s != '\0' && !isspace(*s)) {
+            s++;
+        }
+        bag->words[i].end = s;
+
+        while (*s != '\0' && isspace(*s)) {
+            s++;
+        }
+
+        i++;
+    }
+
+    bag->size = i;
+}
+
+void printWordsReversed(BagOfWords *bag) {
+    for (int i = bag->size - 1; i >= 0; i--) {
+        for (char *p = bag->words[i].begin; p < bag->words[i].end; p++) {
+            printf("%c", *p);
+        }
+        printf("\n");
+    }
+}
