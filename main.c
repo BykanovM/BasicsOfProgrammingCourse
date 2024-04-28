@@ -2238,6 +2238,24 @@ void test_processStringEnd() {
     ASSERT_STRING("", s4);
 }
 
+void test_replaceDigitsWithSpaces() {
+    char s1[] = "Hello1World1!";
+    replaceDigitsWithSpaces(s1);
+    ASSERT_STRING("Hello World !", s1);
+
+    char s2[] = "2";
+    replaceDigitsWithSpaces(s2);
+    ASSERT_STRING("  ", s2);
+
+    char s3[] = "Hello World!";
+    replaceDigitsWithSpaces(s3);
+    ASSERT_STRING("Hello World!", s3);
+
+    char s4[] = "";
+    replaceDigitsWithSpaces(s4);
+    ASSERT_STRING("", s4);
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2253,6 +2271,7 @@ void test() {
     test_removeAdjacentEqualLetters();
     test_processString();
     test_processStringEnd();
+    test_replaceDigitsWithSpaces();
 }
 
 int main() {
