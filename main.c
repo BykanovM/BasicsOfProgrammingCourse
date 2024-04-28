@@ -2274,41 +2274,21 @@ void test_areWordsLexicographicallyOrdered() {
 }
 
 void test_printWordsReversed() {
-    BagOfWords bag;
-    char sentence[] = "apple banana cherry date";
-    char expectedOutput[] = "date\ncherry\nbanana\napple\n";
-    FILE *stream;
-    char buffer[1024];
+    char s1[] = "";
+    printWordsReversed(s1);
+    ASSERT_STRING("", s1);
 
-    getBagOfWords(&bag, sentence);
+    char s2[] = "word";
+    printWordsReversed(s2);
+    ASSERT_STRING("word", s2);
 
-    stream = fopen("output.txt", "w");
-    if (stream == NULL) {
-        fprintf(stderr, "Failed to open file for writing.\n");
-        return;
-    }
+    char s3[] = "w o r";
+    printWordsReversed(s3);
+    ASSERT_STRING("r o w", s3);
 
-    if (!freopen("output.txt", "w", stdout)) {
-        fprintf(stderr, "Failed to redirect stdout.\n");
-        fclose(stream);
-        return;
-    }
-
-    printWordsReversed(&bag);
-
-    fclose(stream);
-
-    stream = fopen("output.txt", "r");
-    if (stream == NULL) {
-        fprintf(stderr, "Failed to open file for reading.\n");
-        return;
-    }
-
-    fgets(buffer, sizeof(buffer), stream);
-
-    assert(strcmp(buffer, expectedOutput) == 0);
-
-    fclose(stream);
+    char s4[] = "Hello World";
+    printWordsReversed(s4);
+    ASSERT_STRING("World Hello", s4);
 }
 
 void test_countPalindromes() {
@@ -2487,6 +2467,52 @@ void test_removePalindromeWord() {
     ASSERT_STRING("", s4);
 }
 
+void test_balanceString() {
+    char s1[100] = "";
+    size_t n1 = 0;
+
+    char s2[100] = "";
+    size_t n2 = 0;
+
+    balanceString(s1, n1, s2, n2);
+
+    ASSERT_STRING("", s1);
+    ASSERT_STRING("", s2);
+
+    char s3[100] = "";
+    size_t n3 = 0;
+
+    char s4[100] = "hello world";
+    size_t n4 = 2;
+
+    balanceString(s3, n3, s4, n4);
+
+    ASSERT_STRING(" hello world", s3);
+    ASSERT_STRING("hello world", s4);
+
+    char s5[100] = "hello world";
+    size_t n5 = 2;
+
+    char s6[100] = "hi globe";
+    size_t n6 = 2;
+
+    balanceString(s5, n5, s6, n6);
+
+    ASSERT_STRING("hello world", s5);
+    ASSERT_STRING("hi globe", s6);
+
+    char s7[100] = "hello";
+    size_t n7 = 1;
+
+    char s8[100] = "cool 3d world";
+    size_t n8 = 3;
+
+    balanceString(s7, n7, s8, n8);
+
+    ASSERT_STRING("hello 3d world", s7);
+    ASSERT_STRING("cool 3d world", s8);
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2505,7 +2531,7 @@ void test() {
     test_replaceDigitsWithSpaces();
     test_replace();
     test_areWordsLexicographicallyOrdered();
-    //test_printWordsReversed();
+    test_printWordsReversed();
     test_countPalindromes();
     test_interleaveWords();
     test_changeWordOrder();
@@ -2516,6 +2542,7 @@ void test() {
     test_getWordExceptLast();
     test_getPrecedingWord();
     test_removePalindromeWord();
+    test_balanceString();
 }
 
 int main() {
