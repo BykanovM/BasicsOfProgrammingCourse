@@ -2437,6 +2437,38 @@ void test_getWordExceptLast() {
     ASSERT_STRING("word is", dest4);
 }
 
+void test_getPrecedingWord() {
+    char s1[] = "";
+    char s2[] = "";
+
+    char dest1[40] = "";
+    WordDescriptor word1 = getPrecedingWord(s1, s2);
+
+    WordDescriptorToString(word1, dest1);
+
+    ASSERT_STRING("", dest1);
+
+    char s3[] = "A B C";
+    char s4[] = "Hello World";
+
+    char dest2[40] = "";
+    WordDescriptor word2 = getPrecedingWord(s3, s4);
+
+    WordDescriptorToString(word2, dest2);
+
+    ASSERT_STRING("", dest2);
+
+    char s5[] = "Hello World";
+    char s6[] = "Cool 3D World";
+
+    char dest3[40] = "";
+    WordDescriptor word3 = getPrecedingWord(s5, s6);
+
+    WordDescriptorToString(word3, dest3);
+
+    ASSERT_STRING("Hello", dest3);
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2464,6 +2496,7 @@ void test() {
     test_areEqualWordsInString();
     test_areIdenticalWordsInString();
     test_getWordExceptLast();
+    test_getPrecedingWord();
 }
 
 int main() {
