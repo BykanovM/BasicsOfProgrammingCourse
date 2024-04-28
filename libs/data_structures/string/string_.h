@@ -50,4 +50,8 @@ char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDesti
 //удаляет из строки все пробельные символы
 void removeNonLetters(char *s);
 
+//Преобразует строку, оставляя только один символ
+//в каждой последовательности подряд идущих одинаковых символов
+void removeAdjacentEqualLetters(char *s);
+
 #endif //ARRAY_STRING__H

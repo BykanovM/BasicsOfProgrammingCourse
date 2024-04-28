@@ -96,3 +96,21 @@ void removeNonLetters(char *s) {
     char *destination = copyIf(s, endSource, s, isgraph);
     *destination = '\0';
 }
+
+void removeAdjacentEqualLetters(char *s) {
+    if (s == NULL || *s == '\0') {
+        return;
+    }
+
+    char *destination = s + 1;
+
+    while (*s != '\0') {
+        if (*s != *destination) {
+            *(++destination) = *++s;
+        } else {
+            s++;
+        }
+    }
+
+    *destination = '\0';
+}
