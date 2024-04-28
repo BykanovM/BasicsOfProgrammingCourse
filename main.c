@@ -2157,6 +2157,33 @@ void test_copyIfReverse() {
     assert(result2 == destination2);
 }
 
+void assertString(const char *expected, char *got, const char *fileName, const char *funcName, int line) {
+    if (strcmp(expected, got) != 0) {
+        fprintf(stderr, "File %s\n", fileName);
+        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
+        fprintf(stderr, "Expected: \"%s\"\n", expected);
+        fprintf(stderr, "Got: \"%s\"\n\n", got);
+    } else {
+        fprintf(stderr, "%s - OK\n", funcName);
+    }
+}
+
+#define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __func__, __LINE__)
+
+void test_removeNonLetters() {
+    char s1[] = "Hi 123\tWorld\n!";
+    removeNonLetters(s1);
+    ASSERT_STRING("Hi123World!", s1);
+
+    char s2[] = " \t\n\r\v\f";
+    removeNonLetters(s2);
+    ASSERT_STRING("", s2);
+
+    char s3[] = "HelloWorld";
+    removeNonLetters(s3);
+    ASSERT_STRING("HelloWorld", s3);
+}
+
 void test() {
     test_strlen_();
     test_find();
@@ -2168,6 +2195,7 @@ void test() {
     test_copy();
     test_copyIf();
     test_copyIfReverse();
+    test_removeNonLetters();
 }
 
 int main() {
