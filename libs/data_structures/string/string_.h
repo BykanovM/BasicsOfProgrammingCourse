@@ -65,4 +65,6 @@ void processString(char *beginString);
 
 void processStringEnd(char *beginString);
 
+void replaceDigitsWithSpaces(char *s);
+
 #endif //ARRAY_STRING__H

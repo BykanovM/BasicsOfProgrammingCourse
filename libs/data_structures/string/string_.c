@@ -158,3 +158,21 @@ void processStringEnd(char *beginString) {
         beginSearch = word.end;
     }
 }
+
+void replaceDigitsWithSpaces(char *s) {
+    char *bufferPtr = s;
+
+    while (*s != '\0') {
+        if (isdigit(*s)) {
+            int digit = *s - '0';
+            for (int j = 0; j < digit; j++) {
+                *bufferPtr++ = ' ';
+            }
+        } else {
+            *bufferPtr++ = *s;
+        }
+        s++;
+    }
+
+    *bufferPtr = '\0';
+}
