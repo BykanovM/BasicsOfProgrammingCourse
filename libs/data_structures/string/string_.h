@@ -69,4 +69,8 @@ void replaceDigitsWithSpaces(char *s);
 
 void replace(char *source, char *w1, char *w2);
 
+int areWordsEqual(WordDescriptor w1, WordDescriptor w2);
+
+int areWordsLexicographicallyOrdered(char *sentence);
+
 #endif //ARRAY_STRING__H

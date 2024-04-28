@@ -214,3 +214,47 @@ void replace(char *source, char *w1, char *w2) {
 
     *recPtr = '\0';
 }
+
+int areWordsEqual(WordDescriptor w1, WordDescriptor w2) {
+    while (w1.begin < w1.end && w2.begin < w2.end) {
+        if (*w1.begin != *w2.begin) {
+            return 0;
+        }
+        w1.begin++;
+        w2.begin++;
+    }
+    if (w1.begin == w1.end && w2.begin == w2.end) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+int areWordsLexicographicallyOrdered(char *sentence) {
+    WordDescriptor prevWord, currWord;
+    prevWord.begin = sentence;
+    prevWord.end = sentence;
+
+    while (*prevWord.end != '\0') {
+        while (*prevWord.end != '\0' && isspace(*prevWord.end)) {
+            prevWord.end++;
+        }
+        if (*prevWord.end == '\0') {
+            break;
+        }
+
+        currWord.begin = prevWord.end;
+        while (*prevWord.end != '\0' && !isspace(*prevWord.end)) {
+            prevWord.end++;
+        }
+        currWord.end = prevWord.end;
+
+        if (!areWordsEqual(prevWord, currWord)) {
+            return 0;
+        }
+
+        prevWord = currWord;
+    }
+
+    return 1;
+}
