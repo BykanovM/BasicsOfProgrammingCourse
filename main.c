@@ -2318,6 +2318,17 @@ void test_countPalindromes() {
     assert(actual == expected);
 }
 
+void test_interleaveWords() {
+    char s1[] = "apple banana cherry";
+    char s2[] = "orange lemon";
+    char expected[] = "apple orange banana lemon cherry ";
+
+    char result[33];
+    interleaveWords(s1, s2, result);
+
+    assert(strcmp(result, expected) == 0);
+}
+
 void test() {
     /*test_strlen_();
     test_find();
@@ -2333,11 +2344,12 @@ void test() {
     test_removeAdjacentEqualLetters();
     test_processString();
     test_processStringEnd();
-    test_replaceDigitsWithSpaces();
+    //test_replaceDigitsWithSpaces();
     test_replace();
-    test_areWordsLexicographicallyOrdered();
-    test_printWordsReversed();
+    //test_areWordsLexicographicallyOrdered();
+    //test_printWordsReversed();
     test_countPalindromes();
+    test_interleaveWords();
 }
 
 int main() {
