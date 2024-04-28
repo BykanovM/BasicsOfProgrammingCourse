@@ -112,4 +112,6 @@ void WordDescriptorToString(WordDescriptor word, char* dest);
 
 bool areEqualWordsInString(char* s);
 
+bool areIdenticalWordsInString(char* s);
+
 #endif //ARRAY_STRING__H
