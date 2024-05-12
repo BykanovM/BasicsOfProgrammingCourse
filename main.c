@@ -3129,6 +3129,136 @@ void testRearrangeNumbersMixed() {
     assert(res_x4 == x3);
 }
 
+void testTransposeNonSymmetricMatrixEmpty() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\8_test_1.txt";
+
+    int n = 0;
+    FILE* file = fopen(filename, "wb");
+
+    fwrite(&n, sizeof(int), 1, file);
+
+    fclose(file);
+
+    file = fopen(filename, "rb");
+
+    int res_n;
+    fread(&res_n, sizeof(int), 1, file);
+
+    fclose(file);
+
+    assert(n == res_n);
+}
+
+
+void testTransposeNonSymmetricMatrixOneMatrices() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\8_test_2.txt";
+
+    int n = 1;
+    int x1 = 1;
+    int x2 = 10;
+
+    FILE* file = fopen(filename, "wb");
+
+    fwrite(&n, sizeof(int), 1, file);
+    fwrite(&x1, sizeof(int), 1, file);
+    fwrite(&x2, sizeof(int), 1, file);
+
+    fclose(file);
+
+    int res_n, res_x1, res_x2;
+    file = fopen(filename, "rb");
+
+    fread(&res_n, sizeof(int), 1, file);
+    fread(&res_x1, sizeof(int), 1, file);
+    fread(&res_x2, sizeof(int), 1, file);
+
+    fclose(file);
+
+    assert(res_n == n);
+    assert(res_x1 == x1);
+    assert(res_x2 == x2);
+}
+
+
+void testTransposeNonSymmetricMatrixSymmetricMatrix() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\8_test_3.txt";
+
+    FILE* file = fopen(filename, "wb");
+
+    int n = 3;
+    matrix m = createMatrixFromArray((int[]) {1, 0, 0,
+                                                 0, 1, 0,
+                                                 0, 0, 1}, 3, 3);
+
+    fwrite(&n, sizeof(int), 1, file);
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            fwrite(&m.values[i][j], sizeof(int), 1, file);
+
+    fclose(file);
+
+    transposeNonSymmetricMatrix(filename);
+
+    file = fopen(filename, "rb");
+
+    int res_n;
+    fread(&res_n, sizeof(int), 1, file);
+    matrix res_m = getMemMatrix(res_n, res_n);
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            fread(&res_m.values[i][j], sizeof(int), 1, file);
+
+    fclose(file);
+
+    assert(areTwoMatricesEqual(&res_m, &m));
+
+    freeMemMatrix(&m);
+    freeMemMatrix(&res_m);
+}
+
+
+void testTransposeNonSymmetricMatrixNonSymmetricMatrix() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\8_test_4.txt";
+
+    FILE* file = fopen(filename, "wb");
+
+    int n = 3;
+    matrix m = createMatrixFromArray((int[]) {1, 2, 3,
+                                                 4, 5, 6,
+                                                 7, 8, 9}, 3, 3);
+
+    fwrite(&n, sizeof(int), 1, file);
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            fwrite(&m.values[i][j], sizeof(int), 1, file);
+
+    fclose(file);
+
+    transposeNonSymmetricMatrix(filename);
+
+    file = fopen(filename, "rb");
+
+    int res_n;
+    fread(&res_n, sizeof(int), 1, file);
+    matrix res_m = getMemMatrix(res_n, res_n);
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            fread(&res_m.values[i][j], sizeof(int), 1, file);
+
+    fclose(file);
+
+    matrix check = createMatrixFromArray((int[]) {1, 4, 7,
+                                                     2, 5, 8,
+                                                     3, 6, 9}, 3, 3);
+
+    assert(res_n == n);
+    assert(areTwoMatricesEqual(&res_m, &check));
+
+    freeMemMatrix(&m);
+    freeMemMatrix(&res_m);
+    freeMemMatrix(&res_m);
+}
+
 void test() {
     testMatrixTransposeMatrix();
     testMatrixTransposeOneElementMatrix();
@@ -3151,6 +3281,10 @@ void test() {
     testRearrangeNumbersOnlyNegative();
     testRearrangeNumbersOnlyPositive();
     testRearrangeNumbersMixed();
+    testTransposeNonSymmetricMatrixEmpty();
+    testTransposeNonSymmetricMatrixOneMatrices();
+    testTransposeNonSymmetricMatrixSymmetricMatrix();
+    testTransposeNonSymmetricMatrixNonSymmetricMatrix();
 }
 
 int main() {
