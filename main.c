@@ -1,6 +1,7 @@
 #include <stdio.h>
 //#include <string.h>
 #include <ctype.h>
+#include <math.h>
 #include <memory.h>
 #include "libs/algorithms/algorithms.h"
 #include "libs/data_structures/bitset/bitset.h"
@@ -3259,6 +3260,78 @@ void testTransposeNonSymmetricMatrixNonSymmetricMatrix() {
     freeMemMatrix(&res_m);
 }
 
+void testGetBestTeamEmptyFile() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\9_test_1.txt";
+
+    FILE* file = fopen(filename, "wb");
+    fclose(file);
+
+    getBestTeam(filename, 0);
+
+    file = fopen(filename, "rb");
+
+    char data[100] = "";
+    fread(data, sizeof(data), 1, file);
+
+    fclose(file);
+
+    assert(strcmp(data, "") == 0);
+}
+
+
+void testGetBestTeamNMoreQuantity() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\9_test_2.txt";
+
+    FILE* file = fopen(filename, "wb");
+
+    sportsman s1 = {.best_result = 10.3, .name="first"};
+    sportsman s2 = {.best_result = 5.2,  .name="second"};
+
+    fwrite(&s1, sizeof(sportsman), 1, file);
+    fwrite(&s2, sizeof(sportsman), 1, file);
+
+    fclose(file);
+
+    getBestTeam(filename, 3);
+
+    file = fopen(filename, "rb");
+
+    sportsman res_s1, res_s2;
+    fread(&res_s1, sizeof(sportsman), 1, file);
+    fread(&res_s2, sizeof(sportsman), 1, file);
+
+    fclose(file);
+
+    assert(strcmp(s1.name, res_s1.name) == 0 && fabs(s1.best_result - res_s1.best_result) <= 0.001);
+    assert(strcmp(s2.name, res_s2.name) == 0 && fabs(s2.best_result - res_s2.best_result) <= 0.001);
+}
+
+
+void testGetBestTeamNLessQuantity() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\9_test_3.txt";
+
+    FILE* file = fopen(filename, "wb");
+
+    sportsman s1 = {.best_result = 10.3, .name="first"};
+    sportsman s2 = {.best_result = 5.2,  .name="second"};
+
+    fwrite(&s1, sizeof(sportsman), 1, file);
+    fwrite(&s2, sizeof(sportsman), 1, file);
+
+    fclose(file);
+
+    getBestTeam(filename, 1);
+
+    file = fopen(filename, "rb");
+
+    sportsman res_s1;
+    fread(&res_s1, sizeof(sportsman), 1, file);
+
+    fclose(file);
+
+    assert(strcmp(s1.name, res_s1.name) == 0 && fabs(s1.best_result - res_s1.best_result) <= 0.001);
+}
+
 void test() {
     testMatrixTransposeMatrix();
     testMatrixTransposeOneElementMatrix();
@@ -3285,6 +3358,9 @@ void test() {
     testTransposeNonSymmetricMatrixOneMatrices();
     testTransposeNonSymmetricMatrixSymmetricMatrix();
     testTransposeNonSymmetricMatrixNonSymmetricMatrix();
+    testGetBestTeamEmptyFile();
+    testGetBestTeamNLessQuantity();
+    testGetBestTeamNMoreQuantity();
 }
 
 int main() {
