@@ -48,4 +48,17 @@ void generateFloat(const char* filename, int n);
 
 void convertFloat(const char* filename);
 
+typedef struct monomial {
+    size_t degree;
+    double coefficient;
+} monomial;
+
+void generatePolynomial(const char* filename);
+
+double getMonomialValue(monomial mono, double x);
+
+void removeTruePolynomial(const char* filename, double x);
+
+void printPolynomial(const char* filename);
+
 #endif //ARRAY_VECTORVOID_H
