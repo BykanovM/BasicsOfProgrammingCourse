@@ -2829,6 +2829,103 @@ void testFilterWordSequenceInLine() {
     assert(strcmp(data, "abcd abc ") == 0);
 }
 
+void testLeaveLongestWordEmptyFile() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\5_test_1.txt";
+
+
+    FILE* file = fopen(filename, "w");
+    fclose(file);
+
+    leaveLongestWord(filename);
+
+    file = fopen(filename, "r");
+
+    char data[100] = "";
+    fprintf(file, "%s", data);
+
+    fclose(file);
+
+    assert(strcmp(data, "") == 0);
+}
+
+void testLeaveLongestWordOneElementInLine() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\5_test_2.txt";
+
+    char line1[] = "abcd";
+    char line2[] = "efg";
+    char line3[] = "hi";
+
+    FILE* file = fopen(filename, "w");
+
+    fprintf(file, "%s \n", line1);
+    fprintf(file, "%s \n", line2);
+    fprintf(file, "%s \n", line3);
+
+    fclose(file);
+
+    leaveLongestWord(filename);
+
+    file = fopen(filename, "r");
+
+    char res_line1[10] = "";
+    fscanf(file, "%s\n", res_line1);
+
+    char res_line2[10] = "";
+    fscanf(file, "%s\n", res_line2);
+
+    char res_line3[10] = "";
+    fscanf(file, "%s\n", res_line3);
+
+    fclose(file);
+
+    assert(strcmp(line1, res_line1) == 0);
+    assert(strcmp(line2, res_line2) == 0);
+    assert(strcmp(line3, res_line3) == 0);
+}
+
+
+void testLeaveLongestWordMoreElementInLine() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\5_test_3.txt";
+
+    char line1[] = "kkalsdf ssss ";
+    char line2[] = "efg qweqw ";
+    char line3[] = "hi my to ";
+
+    FILE* file = fopen(filename, "w");
+
+    fputs(line1, file);
+    fprintf(file, "\n");
+    fputs(line2, file);
+    fprintf(file, "\n");
+    fputs(line3, file);
+    fprintf(file, "\n");
+
+    fclose(file);
+
+    leaveLongestWord(filename);
+
+    file = fopen(filename, "r");
+
+    char res_line1[10] = "";
+    fscanf(file, "%s\n", res_line1);
+
+    char res_line2[10] = "";
+    fscanf(file, "%s\n", res_line2);
+
+    char res_line3[10] = "";
+    fscanf(file, "%s\n", res_line3);
+
+    fclose(file);
+
+    char check1[] = "kkalsdf";
+    char check2[] = "qweqw";
+    char check3[] = "hi";
+
+    assert(strcmp(check1, res_line1) == 0);
+    assert(strcmp(check2, res_line2) == 0);
+    assert(strcmp(check3, res_line3) == 0);
+}
+
 void test() {
     testMatrixTransposeMatrix();
     testMatrixTransposeOneElementMatrix();
@@ -2841,6 +2938,9 @@ void test() {
     testFilterWordEmptyFile();
     testFilterWordSequenceInLine();
     testFilterWordSequenceNotInLine();
+    testLeaveLongestWordEmptyFile();
+    testLeaveLongestWordMoreElementInLine();
+    testLeaveLongestWordOneElementInLine();
 }
 
 int main() {
