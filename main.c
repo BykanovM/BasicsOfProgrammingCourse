@@ -2001,7 +2001,7 @@ void test() {
     test_getNSpecialElement2();
     test_getVectorIndexWithMaxAngle();
     test_getSpecialScalarProduct();
-}*/
+}
 
 void test_strlen_() {
     const char *empty_str = "";
@@ -2543,39 +2543,129 @@ void test_isEveryWordLetterInString() {
     getWord("word", &word5);
 
     assert(isEveryWordLetterInString(string5, word5));
+}*/
+
+void testMatrixTransposeOneElementMatrix() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\1_test_1.txt";
+
+    int n = 1;
+    int element = 10;
+
+    FILE* file = fopen(filename, "w");
+
+    fprintf(file, "%d\n", n);
+    fprintf(file, "%d\n", element);
+
+    fclose(file);
+
+    transposeMatrixInFile(filename);
+
+    file = fopen(filename, "r");
+
+    int n_res, element_res;
+    fscanf(file, "%d\n", &n_res);
+    fscanf(file, "%d\n", &element_res);
+
+    assert(element == element_res);
+
+    fclose(file);
+}
+
+
+void testMatrixTransposeUnitSymmetricMatrix() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\1_test_2.txt";
+    int n = 3;
+    matrix m = createMatrixFromArray((int[]) {1, 0, 0,
+                                                 0, 1, 0,
+                                                 0, 0, 1}, 3, 3);
+
+    FILE* file = fopen(filename, "w");
+
+    fprintf(file, "%d\n", n);
+
+    for (size_t i = 0; i < n; i++) {
+        for (size_t j = 0; j < n; j++) {
+            fprintf(file, "%d ", m.values[i][j]);
+        }
+
+        fprintf(file, "\n");
+    }
+
+    fclose(file);
+
+    transposeMatrixInFile(filename);
+
+    int n_result;
+    matrix result_m = getMemMatrix(n, n);
+
+    file = fopen(filename, "r");
+
+    fscanf(file, "%d\n", &n_result);
+
+    for (size_t i = 0; i < n; i++)
+        for (size_t j = 0; j < n; j++)
+            fscanf(file, "%d", &result_m.values[i][j]);
+
+    fclose(file);
+
+    assert(areTwoMatricesEqual(&m, &result_m));
+
+    freeMemMatrix(&m);
+    freeMemMatrix(&result_m);
+}
+
+
+void testMatrixTransposeMatrix() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\1_test_3.txt";
+    int n = 3;
+    matrix m = createMatrixFromArray((int[]) {1, 2, 3,
+                                                 4, 5, 6,
+                                                 7, 8, 9}, 3, 3);
+
+    matrix check_matrix = createMatrixFromArray((int[]) {1, 4, 7,
+                                                            2, 5, 8,
+                                                            3, 6, 9}, 3, 3);
+
+    FILE* file = fopen(filename, "w");
+
+    fprintf(file, "%d\n", n);
+
+    for (size_t i = 0; i < n; i++) {
+        for (size_t j = 0; j < n; j++) {
+            fprintf(file, "%d ", m.values[i][j]);
+        }
+
+        fprintf(file, "\n");
+    }
+
+    fclose(file);
+
+    transposeMatrixInFile(filename);
+
+    int n_result;
+    matrix result_m = getMemMatrix(n, n);
+
+    file = fopen(filename, "r");
+
+    fscanf(file, "%d\n", &n_result);
+
+    for (size_t i = 0; i < n; i++)
+        for (size_t j = 0; j < n; j++)
+            fscanf(file, "%d", &result_m.values[i][j]);
+
+    fclose(file);
+
+    assert(areTwoMatricesEqual(&check_matrix, &result_m));
+
+    freeMemMatrix(&m);
+    freeMemMatrix(&result_m);
+    freeMemMatrix(&check_matrix);
 }
 
 void test() {
-    /*test_strlen_();
-    test_find();
-    test_findNonSpace();
-    test_findSpace();
-    test_findNonSpaceReverse();
-    test_findSpaceReverse();
-    test_strcmp();
-    test_copy();
-    test_copyIf();
-    test_copyIfReverse();*/
-    test_removeNonLetters();
-    test_removeAdjacentEqualLetters();
-    test_processString();
-    test_processStringEnd();
-    test_replaceDigitsWithSpaces();
-    test_replace();
-    test_areWordsLexicographicallyOrdered();
-    test_printWordsReversed();
-    test_countPalindromes();
-    test_interleaveWords();
-    test_changeWordOrder();
-    test_getWordBeforeFirstWordWithA();
-    test_getLastCommonWord();
-    test_areEqualWordsInString();
-    test_areIdenticalWordsInString();
-    test_getWordExceptLast();
-    test_getPrecedingWord();
-    test_removePalindromeWord();
-    test_balanceString();
-    test_isEveryWordLetterInString();
+    testMatrixTransposeMatrix();
+    testMatrixTransposeOneElementMatrix();
+    testMatrixTransposeUnitSymmetricMatrix();
 }
 
 int main() {
