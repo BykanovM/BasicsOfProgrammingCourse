@@ -44,4 +44,8 @@ void popBackV(vectorVoid *v);
 //увеличвает количество выделенной ему памяти в 2 раза, используя reserveV
 void pushBackV(vectorVoid *v, void *source);
 
+void generateFloat(const char* filename, int n);
+
+void convertFloat(const char* filename);
+
 #endif //ARRAY_VECTORVOID_H

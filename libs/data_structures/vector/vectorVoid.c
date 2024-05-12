@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
 #include "../../data_structures/vector/vectorVoid.h"
 
 vectorVoid createVectorV(size_t n, size_t baseTypeSize) {
@@ -89,4 +90,50 @@ void pushBackV(vectorVoid *v, void *source) {
     }
     setVectorValueV(v, v->size, source);
     v->size++;
+}
+
+void generateFloat(const char* filename, int n) {
+    srand(time(NULL));
+
+    FILE* file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("reading error\n");
+        exit(1);
+    }
+
+    for (size_t i = 0; i < n; i++)
+        fprintf(file, "%f ", 10.0 * rand() / RAND_MAX);
+
+    fclose(file);
+}
+
+
+void convertFloat(const char* filename) {
+    FILE* file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("reading error\n");
+        exit(1);
+    }
+
+    vectorVoid v = createVectorV(0, sizeof(float));
+
+    while (!feof(file)) {
+        float x;
+        fscanf(file, "%f", &x);
+
+        pushBackV(&v, &x);
+    }
+
+    fclose(file);
+
+    file = fopen(filename, "w");
+
+    for (size_t i = 0; i < v.size; i++) {
+        float x;
+        getVectorValueV(&v, i, &x);
+        fprintf(file, "%.2f ", x);
+    }
+
+    deleteVectorV(&v);
+    fclose(file);
 }
