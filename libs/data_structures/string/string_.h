@@ -126,4 +126,10 @@ bool isEveryWordLetterInString(char* string, WordDescriptor word);
 
 int getWord(char *beginSearch, WordDescriptor *word);
 
+bool lettersBelongWord(WordDescriptor sub_word, WordDescriptor word);
+
+void generateString(const char* filename, char* source_string);
+
+void filterWord(const char* filename, char* source_word);
+
 #endif //ARRAY_STRING__H

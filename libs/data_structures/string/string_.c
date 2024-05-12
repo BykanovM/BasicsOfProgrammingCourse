@@ -750,3 +750,96 @@ bool isEveryWordLetterInString(char* string, WordDescriptor word) {
 
     return 1;
 }
+
+bool lettersBelongWord(WordDescriptor sub_word, WordDescriptor word) {
+    bool include[26] = {0};
+
+    char* start = word.begin;
+    char* end = word.end + 1;
+
+    while (start != end) {
+        if (isalpha(*start))
+            include[*start - LETTERS_SHIFT] = true;
+
+        start++;
+    }
+
+    while (sub_word.begin <= sub_word.end) {
+        if (!include[*sub_word.begin - LETTERS_SHIFT])
+            return false;
+
+        sub_word.begin++;
+    }
+
+    return true;
+}
+
+void generateString(const char* filename, char* source_string) {
+    FILE* file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("reading error\n");
+        exit(1);
+    }
+
+    size_t string_length = strlen_(source_string);
+
+    for (size_t i = 0; i <= string_length; i++)
+        fprintf(file, "%c", source_string[i]);
+
+    fclose(file);
+}
+
+
+void filterWord(const char* filename, char* source_word) {
+    FILE* file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("reading error\n");
+        exit(1);
+    }
+
+    fseek(file, 0, SEEK_END);
+    size_t length = ftell(file);
+    fseek(file, 0, SEEK_SET);
+
+    if (length == 0)
+        return;
+
+    fread(stringBuffer_, sizeof(char), length, file);
+    stringBuffer_[length] = '\0';
+
+    fclose(file);
+
+    WordDescriptor word;
+    getWordWithoutSpace(source_word, &word);
+    sortWordLetters(&word);
+
+    BagOfWords words = {.size = 0};
+    char* begin_search = stringBuffer_;
+    while (getWordWithoutSpace(begin_search, &words.words[words.size])) {
+        begin_search = words.words[words.size].end + 1;
+        words.size++;
+    }
+
+    file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("reading error\n");
+        exit(1);
+    }
+
+    for (size_t i = 0; i < words.size; i++) {
+        if (lettersBelongWord(word, words.words[i])) {
+            while (words.words[i].begin <= words.words[i].end) {
+                fprintf(file, "%c", *words.words[i].begin);
+                words.words[i].begin++;
+            }
+            fprintf(file, " ");
+        }
+    }
+
+    fprintf(file, "%c", '\0');
+
+    freeString(stringBuffer_);
+    freeBag(&words);
+
+    fclose(file);
+}
