@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 #include "../../data_structures/matrix/matrix.h"
 
 matrix getMemMatrix(int nRows, int nCols) {
@@ -862,4 +863,67 @@ long long getSpecialScalarProduct(matrix m) {
     }
 
     return getScalarProductRowAndCol(m, maxRow, minCol);
+}
+
+void generateRandomMatrixFile(const char* filename, size_t n) {
+    srand(time(NULL));
+
+    FILE* file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("reading error\n");
+        exit(1);
+    }
+
+    fprintf(file, "%lld\n", n);
+
+    for (size_t i = 0; i < n; i++) {
+        for (size_t j = 0; j < n; j++) {
+            fprintf(file, "%d ", rand() % 10);
+        }
+
+        fprintf(file, "\n");
+    }
+
+    fclose(file);
+}
+
+void transposeMatrixInFile(const char* filename) {
+    FILE* file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("reading error\n");
+        exit(1);
+    }
+
+    size_t n;
+    fscanf(file, "%lld", &n);
+
+    matrix matrix = getMemMatrix((int) n , (int) n);
+
+    for (size_t i = 0; i < n; i++)
+        for (size_t j = 0; j < n; j++)
+            fscanf(file, "%d", &matrix.values[i][j]);
+
+    fclose(file);
+
+    transposeSquareMatrix(&matrix);
+
+    file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("reading error\n");
+        exit(1);
+    }
+
+    fprintf(file, "%d\n", n);
+
+    for (size_t i = 0; i < n; i++) {
+        for (size_t j = 0; j < n; j++) {
+            fprintf(file, "%d ", matrix.values[i][j]);
+        }
+
+        fprintf(file, "\n");
+    }
+
+    fclose(file);
+
+    freeMemMatrix(&matrix);
 }

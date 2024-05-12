@@ -179,4 +179,8 @@ long long getScalarProductRowAndCol(matrix m, int i, int j);
 
 long long getSpecialScalarProduct(matrix m);
 
+void generateRandomMatrixFile(const char* filename, size_t n);
+
+void transposeMatrixInFile(const char* filename);
+
 #endif //ARRAY_MATRIX_H
