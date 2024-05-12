@@ -8,6 +8,7 @@
 #include "libs/data_structures/ordered_array_set/ordered_array_set.h"
 #include "libs/data_structures/matrix/matrix.h"
 #include "libs/data_structures/string/string_.h"
+#include "libs/data_structures/vector/vectorVoid.h"
 
 /*// тесты с битовыми множествами
 typedef unsigned int uint;
@@ -2662,10 +2663,84 @@ void testMatrixTransposeMatrix() {
     freeMemMatrix(&check_matrix);
 }
 
+void testConvertFloatZeroQuantity() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\2_test_1.txt";
+
+    FILE* file = fopen(filename, "w");
+    fclose(file);
+
+    convertFloat(filename);
+
+    file = fopen(filename, "r");
+
+    char data[10] = "";
+    fscanf(file, "%s", data);
+
+    fclose(file);
+
+    assert(strcmp(data, "0.00") == 0);
+}
+
+
+void testConvertFloatOneElement() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\2_test_2.txt";
+
+    float number = 10.123;
+
+    FILE* file = fopen(filename, "w");
+
+    fprintf(file, "%f", number);
+
+    fclose(file);
+
+    convertFloat(filename);
+
+    file = fopen(filename, "r");
+
+    char data[10] = "";
+    fscanf_s(file, "%s", data);
+
+    fclose(file);
+
+    char check[10] = "10.12";
+
+    assert(strcmp(data, check) == 0);
+}
+
+void testConvertFloatMoreElement() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\2_test_3.txt";
+
+    float f1 = 1.123123;
+    float f2 = 2.232323;
+    float f3 = 3.343434;
+
+    FILE* file = fopen(filename, "w");
+
+    fprintf(file, "%f %f %f", f1, f2,f3);
+
+    fclose(file);
+
+    convertFloat(filename);
+
+    file = fopen(filename, "r");
+
+    char data[100] = "";
+    fgets(data, sizeof(data), file);
+
+    fclose(file);
+
+    char check[100] = "1.12 2.23 3.34 ";
+
+    assert(strcmp(data, check) == 0);
+}
+
 void test() {
     testMatrixTransposeMatrix();
     testMatrixTransposeOneElementMatrix();
     testMatrixTransposeUnitSymmetricMatrix();
+    testConvertFloatZeroQuantity();
+    testConvertFloatOneElement();
+    testConvertFloatMoreElement();
 }
 
 int main() {
