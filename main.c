@@ -2,7 +2,7 @@
 //#include <string.h>
 #include <ctype.h>
 #include <memory.h>
-#include "libs/algorithms/array/array.h"
+#include "libs/algorithms/algorithms.h"
 #include "libs/data_structures/bitset/bitset.h"
 #include "libs/data_structures/unordered_array_set/unordered_array_set.h"
 #include "libs/data_structures/ordered_array_set/ordered_array_set.h"
@@ -2734,6 +2734,54 @@ void testConvertFloatMoreElement() {
     assert(strcmp(data, check) == 0);
 }
 
+void testEvaluateExpression2Operand() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\3_test_1.txt";
+
+    char expression[] = "(2 * 3)";
+    FILE* file = fopen(filename, "w");
+
+    fputs(expression, file);
+
+    fclose(file);
+
+    evaluateExpression("C:\\Users\\bykan\\Desktop\\Lab19\\3_test_1.txt");
+
+    file = fopen(filename, "r");
+
+    char data[100] = "";
+    fgets(data, sizeof(data), file);
+
+    fclose(file);
+
+    char check[] = "(2 * 3) = 6.00 ";
+
+    assert(strcmp(data, check));
+}
+
+void testEvaluateExpression3Operand() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\3_test_2.txt";
+
+    char expression[] = "(2 * 3) + 3";
+    FILE* file = fopen(filename, "w");
+
+    fputs(expression, file);
+
+    fclose(file);
+
+    evaluateExpression("C:\\Users\\bykan\\Desktop\\Lab19\\3_test_2.txt");
+
+    file = fopen(filename, "r");
+
+    char data[100] = "";
+    fgets(data, sizeof(data), file);
+
+    fclose(file);
+
+    char check[] = "(2 * 3) + 3 = 9.00 ";
+
+    assert(strcmp(data, check));
+}
+
 void test() {
     testMatrixTransposeMatrix();
     testMatrixTransposeOneElementMatrix();
@@ -2741,6 +2789,8 @@ void test() {
     testConvertFloatZeroQuantity();
     testConvertFloatOneElement();
     testConvertFloatMoreElement();
+    testEvaluateExpression2Operand();
+    testEvaluateExpression3Operand();
 }
 
 int main() {
