@@ -11,6 +11,7 @@
 #include "libs/data_structures/string/string_.h"
 #include "libs/data_structures/vector/vectorVoid.h"
 #include "libs/data_structures/vector/vector.h"
+#include "libs/data_structures/product/productUpdate.h"
 
 /*// тесты с битовыми множествами
 typedef unsigned int uint;
@@ -3332,6 +3333,182 @@ void testGetBestTeamNLessQuantity() {
     assert(strcmp(s1.name, res_s1.name) == 0 && fabs(s1.best_result - res_s1.best_result) <= 0.001);
 }
 
+void testUpdateProductEmptyFiles() {
+    const char filename1[] = "C:\\Users\\bykan\\Desktop\\Lab19\\10_1_test_1.txt";
+    const char filename2[] = "C:\\Users\\bykan\\Desktop\\Lab19\\10_2_test_1.txt";
+
+    FILE* file = fopen(filename1, "wb");
+    fclose(file);
+
+    file = fopen(filename2, "wb");
+    fclose(file);
+
+    updateProduct(filename1, filename2);
+
+    char data1[10] = "";
+    file = fopen(filename1, "rb");
+    fread(data1, sizeof(data1), 1, file);
+    fclose(file);
+
+    char data2[10] = "";
+    file = fopen(filename1, "rb");
+    fread(data2, sizeof(data2), 1, file);
+    fclose(file);
+
+    assert(strcmp(data1, "") == 0);
+    assert(strcmp(data2, "") == 0);
+}
+
+
+void testUpdateProductFirstFileEmpty() {
+    const char filename1[] = "C:\\Users\\bykan\\Desktop\\Lab19\\10_1_test_2.txt";
+    const char filename2[] = "C:\\Users\\bykan\\Desktop\\Lab19\\10_2_test_2.txt";
+
+    FILE* file = fopen(filename1, "wb");
+    fclose(file);
+
+    file = fopen(filename2, "wb");
+
+    order od = {.order_name="name", .quantity = 4};
+
+    fwrite(&od, sizeof(order), 1, file);
+
+    fclose(file);
+
+    updateProduct(filename1, filename2);
+
+    char data[10] = "";
+    file = fopen(filename1, "rb");
+    fread(data, sizeof(data), 1, file);
+    fclose(file);
+
+    file = fopen(filename2, "rb");
+
+    order res_od;
+    fread(&res_od, sizeof(order), 1, file);
+
+    fclose(file);
+
+    assert(strcmp(data, "") == 0);
+    assert(strcmp(od.order_name, res_od.order_name) == 0 && od.quantity == res_od.quantity);
+}
+
+
+void testUpdateProductSecondFileEmpty() {
+    const char filename1[] = "C:\\Users\\bykan\\Desktop\\Lab19\\10_1_test_3.txt";
+    const char filename2[] = "C:\\Users\\bykan\\Desktop\\Lab19\\10_2_test_3.txt";
+
+    FILE* file = fopen(filename1, "wb");
+    product pr = {.product_name="name", .unit_price=10, .total_cost=20, .quantity=2};
+    fwrite(&pr, sizeof(product), 1, file);
+    fclose(file);
+
+    file = fopen(filename2, "wb");
+    fclose(file);
+
+    updateProduct(filename1, filename2);
+
+    file = fopen(filename1, "rb");
+    product res_pr;
+    fread(&res_pr, sizeof(product), 1, file);
+    fclose(file);
+
+    file = fopen(filename2, "rb");
+    char data[10] = "";
+    fread(data, sizeof(data), 1, file);
+    fclose(file);
+
+    assert(strcmp(pr.product_name, res_pr.product_name) == 0);
+    assert(pr.unit_price == res_pr.unit_price);
+    assert(pr.total_cost == res_pr.total_cost);
+    assert(pr.quantity == res_pr.quantity);
+    assert(strcmp(data, "") == 0);
+}
+
+
+void testUpdateProductOrderMoreProduct() {
+    const char filename1[] = "C:\\Users\\bykan\\Desktop\\Lab19\\10_1_test_4.txt";
+    const char filename2[] = "C:\\Users\\bykan\\Desktop\\Lab19\\10_2_test_4.txt";
+
+    product pr1 = {.product_name="name1", .unit_price=10, .total_cost=30, .quantity=3};
+    product pr2 = {.product_name="name2", .unit_price=20, .total_cost=40, .quantity=2};
+    order od = {.order_name="name2", .quantity=10};
+
+    FILE* file = fopen(filename1, "wb");
+    fwrite(&pr1, sizeof(product), 1, file);
+    fwrite(&pr2, sizeof(product), 1, file);
+    fclose(file);
+
+    file = fopen(filename2, "wb");
+    fwrite(&od, sizeof(order), 1, file);
+    fclose(file);
+
+    updateProduct(filename1, filename2);
+
+    product res_pr;
+    order res_od;
+
+    file = fopen(filename1, "rb");
+    fread(&res_pr, sizeof(product), 1, file);
+    fclose(file);
+
+    file = fopen(filename2, "rb");
+    fread(&res_od, sizeof(order), 1, file);
+    fclose(file);
+
+    assert(strcmp(pr1.product_name, res_pr.product_name) == 0);
+    assert(pr1.unit_price == res_pr.unit_price);
+    assert(pr1.total_cost == res_pr.total_cost);
+    assert(pr1.quantity == res_pr.quantity);
+    assert(strcmp(od.order_name, res_od.order_name) == 0 && od.quantity == res_od.quantity);
+
+}
+
+
+void testUpdateProductOrderLessProduct() {
+    const char filename1[] = "C:\\Users\\bykan\\Desktop\\Lab19\\10_1_test_5.txt";
+    const char filename2[] = "C:\\Users\\bykan\\Desktop\\Lab19\\10_2_test_5.txt";
+
+    product pr1 = {.product_name="name1", .unit_price=10, .total_cost=30, .quantity=3};
+    product pr2 = {.product_name="name2", .unit_price=20, .total_cost=240, .quantity=12};
+    order od = {.order_name="name2", .quantity=10};
+
+    FILE* file = fopen(filename1, "wb");
+    fwrite(&pr1, sizeof(product), 1, file);
+    fwrite(&pr2, sizeof(product), 1, file);
+    fclose(file);
+
+    file = fopen(filename2, "wb");
+    fwrite(&od, sizeof(order), 1, file);
+    fclose(file);
+
+    updateProduct(filename1, filename2);
+
+    product res_pr1, res_pr2;
+    order res_od;
+
+    file = fopen(filename1, "rb");
+    fread(&res_pr1, sizeof(product), 1, file);
+    fread(&res_pr2, sizeof(product), 1, file);
+    fclose(file);
+
+    file = fopen(filename2, "rb");
+    fread(&res_od, sizeof(order), 1, file);
+    fclose(file);
+
+    assert(strcmp(pr1.product_name, res_pr1.product_name) == 0);
+    assert(pr1.unit_price == res_pr1.unit_price);
+    assert(pr1.total_cost == res_pr1.total_cost);
+    assert(pr1.quantity == res_pr1.quantity);
+
+    assert(strcmp(pr2.product_name, res_pr2.product_name) == 0);
+    assert(pr2.unit_price == res_pr2.unit_price);
+    assert(res_pr2.total_cost == 40);
+    assert(res_pr2.quantity == 2);
+
+    assert(strcmp(od.order_name, res_od.order_name) == 0 && od.quantity == res_od.quantity);
+}
+
 void test() {
     testMatrixTransposeMatrix();
     testMatrixTransposeOneElementMatrix();
@@ -3361,6 +3538,11 @@ void test() {
     testGetBestTeamEmptyFile();
     testGetBestTeamNLessQuantity();
     testGetBestTeamNMoreQuantity();
+    testUpdateProductEmptyFiles();
+    testUpdateProductFirstFileEmpty();
+    testUpdateProductSecondFileEmpty();
+    testUpdateProductOrderLessProduct();
+    testUpdateProductOrderMoreProduct();
 }
 
 int main() {
