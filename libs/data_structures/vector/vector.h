@@ -49,4 +49,10 @@ int* back(vector *v);
 //возвращает указатель на нулевой элемент вектора
 int* front(vector *v);
 
+void generateNumbersArray(const char* filename);
+
+void rearrangeNumbers(const char* filename);
+
+void printNumbersArray(const char* filename);
+
 #endif //ARRAY_VECTOR_H
