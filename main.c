@@ -2926,6 +2926,90 @@ void testLeaveLongestWordMoreElementInLine() {
     assert(strcmp(check3, res_line3) == 0);
 }
 
+void testRemoveTruePolynomialEmptyFile() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\6_test_1.txt";
+
+    FILE* file = fopen(filename, "wb");
+    fclose(file);
+
+    removeTruePolynomial(filename, 1.0);
+
+    file = fopen(filename, "rb");
+
+    char data[10] = "";
+    fscanf(file, "%s", data);
+
+    fclose(file);
+
+    assert(strcmp(data, "") == 0);
+}
+
+
+void testRemoveTruePolynomialNotTrueExpression() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\6_test_2.txt";
+
+    double x = 2.0;
+    monomial x_2 = {.coefficient = 1.0, .degree = 2};
+    monomial x_1 = {.coefficient = -2.0, .degree = 1};
+    monomial c = {.coefficient = 1.0, .degree = 0};
+
+    FILE* file = fopen(filename, "wb");
+
+    fwrite(&x_2, sizeof(monomial), 1, file);
+    fwrite(&x_1, sizeof(monomial), 1, file);
+    fwrite(&c, sizeof(monomial), 1, file);
+
+    fclose(file);
+
+    removeTruePolynomial(filename, x);
+
+    file = fopen(filename, "rb");
+
+    monomial res_x_2;
+    fread(&res_x_2, sizeof(monomial), 1, file);
+
+    monomial res_x_1;
+    fread(&res_x_1, sizeof(monomial), 1, file);
+
+    monomial res_c;
+    fread(&res_c, sizeof(monomial), 1, file);
+
+    fclose(file);
+
+    assert(x_2.coefficient - res_x_2.coefficient <= 0.0001 && x_2.degree == res_x_2.degree);
+    assert(x_1.coefficient - res_x_1.coefficient <= 0.0001 && x_1.degree == res_x_1.degree);
+    assert(c.coefficient - res_c.coefficient <= 0.0001 && c.degree == res_c.degree);
+}
+
+
+void testRemoveTruePolynomialTrueExpression() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\6_test_3.txt";
+
+    double x = 1.0;
+    monomial x_2 = {.coefficient = 1.0, .degree = 2};
+    monomial x_1 = {.coefficient = -2.0, .degree = 1};
+    monomial c = {.coefficient = 1.0, .degree = 0};
+
+    FILE* file = fopen(filename, "wb");
+
+    fwrite(&x_2, sizeof(monomial), 1, file);
+    fwrite(&x_1, sizeof(monomial), 1, file);
+    fwrite(&c, sizeof(monomial), 1, file);
+
+    fclose(file);
+
+    removeTruePolynomial(filename, x);
+
+    file = fopen(filename, "rb");
+
+    char data[10] = "";
+    fscanf(file, "%s", data);
+
+    fclose(file);
+
+    assert(strcmp(data, "") == 0);
+}
+
 void test() {
     testMatrixTransposeMatrix();
     testMatrixTransposeOneElementMatrix();
@@ -2941,6 +3025,9 @@ void test() {
     testLeaveLongestWordEmptyFile();
     testLeaveLongestWordMoreElementInLine();
     testLeaveLongestWordOneElementInLine();
+    testRemoveTruePolynomialEmptyFile();
+    testRemoveTruePolynomialNotTrueExpression();
+    testRemoveTruePolynomialTrueExpression();
 }
 
 int main() {
