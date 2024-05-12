@@ -132,4 +132,8 @@ void generateString(const char* filename, char* source_string);
 
 void filterWord(const char* filename, char* source_word);
 
+void generateTextFile(const char* filename, int lines, int word, int max_word_size);
+
+void leaveLongestWord(const char* filename);
+
 #endif //ARRAY_STRING__H

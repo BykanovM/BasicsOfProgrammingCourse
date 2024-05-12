@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <memory.h>
 #include <stdlib.h>
+#include <time.h>
 #include "../../data_structures/string/string_.h"
 
 size_t strlen_(const char *begin) {
@@ -841,5 +842,104 @@ void filterWord(const char* filename, char* source_word) {
     freeString(stringBuffer_);
     freeBag(&words);
 
+    fclose(file);
+}
+
+#define MAX_LINE_SIZE 100
+
+void generateTextFile(const char* filename, int lines, int word, int max_word_size) {
+    srand(time(NULL));
+
+    FILE* file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("reading error\n");
+        exit(1);
+    }
+
+    for (int i = 0; i < lines; i++) {
+        for (int j = 0; j < word; j++) {
+            for (int k = 0; k < rand() % max_word_size + 1; k++) {
+                fprintf(file, "%c", 'a' + rand() % 26);
+            }
+            fprintf(file, " ");
+        }
+        fprintf(file, "\n");
+    }
+
+    fclose(file);
+}
+
+
+void leaveLongestWord(const char* filename) {
+    FILE* file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("reading error\n");
+        exit(1);
+    }
+
+
+    char buff[MAX_LINE_SIZE] = "";
+    char* rec_ptr = stringBuffer_;
+
+    fgets(buff, sizeof(buff), file);
+
+    size_t length = strlen_(buff);
+    length = length == 0 ? 1 : length;
+
+    rec_ptr = copy(buff, buff + length - 1, rec_ptr);
+    *rec_ptr++ = ' ';
+
+
+    size_t amount_word_in_line = 0;
+    char* begin_search = stringBuffer_;
+    while (getWordWithoutSpace(begin_search, &bag_.words[bag_.size])) {
+        begin_search = bag_.words[bag_.size].end + 1;
+        amount_word_in_line++;
+        bag_.size++;
+    }
+
+
+    while (fgets(buff, sizeof(buff), file)) {
+        rec_ptr = copy(buff, buff + strlen_(buff) - 1, rec_ptr);
+        *rec_ptr++ = ' ';
+
+        while (getWordWithoutSpace(begin_search, &bag_.words[bag_.size])) {
+            begin_search = bag_.words[bag_.size].end + 1;
+            bag_.size++;
+        }
+    }
+
+    fclose(file);
+
+
+    file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("reading error\n");
+        exit(1);
+    }
+
+    for (size_t i = 0; i < bag_.size; i += amount_word_in_line) {
+        WordDescriptor word_max_length = bag_.words[i];
+        size_t max_length = word_max_length.end - word_max_length.begin + 1;
+
+        for (size_t j = i + 1; j < i + amount_word_in_line; j++) {
+            size_t current_length = bag_.words[j].end - bag_.words[j].begin + 1;
+
+            if (current_length > max_length) {
+                word_max_length = bag_.words[j];
+                max_length = current_length;
+            }
+        }
+
+        char* write_ptr = word_max_length.begin;
+        while (write_ptr <= word_max_length.end) {
+            fprintf(file, "%c", *write_ptr);
+            write_ptr++;
+        }
+
+        fprintf(file, "\n");
+    }
+
+    freeBag(&bag_);
     fclose(file);
 }
