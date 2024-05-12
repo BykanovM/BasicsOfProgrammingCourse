@@ -2782,6 +2782,53 @@ void testEvaluateExpression3Operand() {
     assert(strcmp(data, check));
 }
 
+void testFilterWordEmptyFile() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\4_test_1.txt";
+
+    generateString(filename, "");
+    char source_word[] = "source";
+    filterWord(filename, source_word);
+
+    FILE* file = fopen(filename, "r");
+    char data[10] = "";
+    fscanf(file, "%s", data);
+    fclose(file);
+
+    assert(strcmp(data, "") == 0);
+}
+
+
+void testFilterWordSequenceNotInLine() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\4_test_2.txt";
+
+    generateString(filename, "abcd ghtsdf");
+    char source_word[] = "seq";
+    filterWord(filename, source_word);
+
+    FILE* file = fopen(filename, "r");
+    char data[10] = "";
+    fscanf(file, "%s", data);
+    fclose(file);
+
+    assert(strcmp(data, "") == 0);
+}
+
+
+void testFilterWordSequenceInLine() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\4_test_3.txt";
+
+    generateString(filename, "abcd word abc");
+    char source_word[] = "abc";
+    filterWord(filename, source_word);
+
+    FILE* file = fopen(filename, "r");
+    char data[40] = "";
+    fgets(data, sizeof(data), file);
+    fclose(file);
+
+    assert(strcmp(data, "abcd abc ") == 0);
+}
+
 void test() {
     testMatrixTransposeMatrix();
     testMatrixTransposeOneElementMatrix();
@@ -2791,6 +2838,9 @@ void test() {
     testConvertFloatMoreElement();
     testEvaluateExpression2Operand();
     testEvaluateExpression3Operand();
+    testFilterWordEmptyFile();
+    testFilterWordSequenceInLine();
+    testFilterWordSequenceNotInLine();
 }
 
 int main() {
