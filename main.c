@@ -9,6 +9,7 @@
 #include "libs/data_structures/matrix/matrix.h"
 #include "libs/data_structures/string/string_.h"
 #include "libs/data_structures/vector/vectorVoid.h"
+#include "libs/data_structures/vector/vector.h"
 
 /*// тесты с битовыми множествами
 typedef unsigned int uint;
@@ -3010,6 +3011,124 @@ void testRemoveTruePolynomialTrueExpression() {
     assert(strcmp(data, "") == 0);
 }
 
+void testRearrangeNumbersEmptyFile() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\7_test_1.txt";
+
+    FILE* file = fopen(filename, "wb");
+    fclose(file);
+
+    rearrangeNumbers(filename);
+
+    file = fopen(filename, "rb");
+
+    char data[10] = "";
+    fread(data, sizeof(data), 1, file);
+
+    fclose(file);
+
+    assert(strcmp(data, "") == 0);
+}
+
+
+void testRearrangeNumbersOnlyNegative() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\7_test_2.txt";
+
+    int x1 = -1;
+    int x2 = -2;
+    int x3 = -3;
+
+    FILE* file = fopen(filename, "wb");
+
+    fwrite(&x1, sizeof(int), 1, file);
+    fwrite(&x2, sizeof(int), 1, file);
+    fwrite(&x3, sizeof(int), 1, file);
+
+    fclose(file);
+
+    rearrangeNumbers(filename);
+
+    file = fopen(filename, "rb");
+
+    int res_x1, res_x2, res_x3;
+    fread(&res_x1, sizeof(int), 1, file);
+    fread(&res_x2, sizeof(int), 1, file);
+    fread(&res_x3, sizeof(int), 1, file);
+
+    fclose(file);
+
+    assert(x1 == res_x1);
+    assert(x2 == res_x2);
+    assert(x3 == res_x3);
+}
+
+
+void testRearrangeNumbersOnlyPositive() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\7_test_3.txt";
+
+    int x1 = 1;
+    int x2 = 2;
+    int x3 = 3;
+
+    FILE* file = fopen(filename, "wb");
+
+    fwrite(&x1, sizeof(int), 1, file);
+    fwrite(&x2, sizeof(int), 1, file);
+    fwrite(&x3, sizeof(int), 1, file);
+
+    fclose(file);
+
+    rearrangeNumbers(filename);
+
+    file = fopen(filename, "rb");
+
+    int res_x1, res_x2, res_x3;
+    fread(&res_x1, sizeof(int), 1, file);
+    fread(&res_x2, sizeof(int), 1, file);
+    fread(&res_x3, sizeof(int), 1, file);
+
+    fclose(file);
+
+    assert(x1 == res_x1);
+    assert(x2 == res_x2);
+    assert(x3 == res_x3);
+}
+
+
+void testRearrangeNumbersMixed() {
+    const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\7_test_4.txt";
+
+    int x1 = -1;
+    int x2 = 2;
+    int x3 = -3;
+    int x4 = 3;
+
+    FILE* file = fopen(filename, "wb");
+
+    fwrite(&x1, sizeof(int), 1, file);
+    fwrite(&x2, sizeof(int), 1, file);
+    fwrite(&x3, sizeof(int), 1, file);
+    fwrite(&x4, sizeof(int), 1, file);
+
+    fclose(file);
+
+    rearrangeNumbers(filename);
+
+    file = fopen(filename, "rb");
+
+    int res_x1, res_x2, res_x3, res_x4;
+    fread(&res_x1, sizeof(int), 1, file);
+    fread(&res_x2, sizeof(int), 1, file);
+    fread(&res_x3, sizeof(int), 1, file);
+    fread(&res_x4, sizeof(int), 1, file);
+
+    fclose(file);
+
+    assert(res_x1 == x2);
+    assert(res_x2 == x4);
+    assert(res_x3 == x1);
+    assert(res_x4 == x3);
+}
+
 void test() {
     testMatrixTransposeMatrix();
     testMatrixTransposeOneElementMatrix();
@@ -3028,6 +3147,10 @@ void test() {
     testRemoveTruePolynomialEmptyFile();
     testRemoveTruePolynomialNotTrueExpression();
     testRemoveTruePolynomialTrueExpression();
+    testRearrangeNumbersEmptyFile();
+    testRearrangeNumbersOnlyNegative();
+    testRearrangeNumbersOnlyPositive();
+    testRearrangeNumbersMixed();
 }
 
 int main() {
