@@ -183,4 +183,16 @@ void generateRandomMatrixFile(const char* filename, size_t n);
 
 void transposeMatrixInFile(const char* filename);
 
+void generateNonSymmetricMatrix(const char* filename);
+
+int isSymmetric(int n, int matrix[n][n]);
+
+void swap(int* a, int* b);
+
+void transpose(int n, int matrix[n][n]);
+
+void transposeNonSymmetricMatrix(const char* filename);
+
+void printBinFileMatrix(const char* filename);
+
 #endif //ARRAY_MATRIX_H

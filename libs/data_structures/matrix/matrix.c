@@ -927,3 +927,118 @@ void transposeMatrixInFile(const char* filename) {
 
     freeMemMatrix(&matrix);
 }
+
+void generateNonSymmetricMatrix(const char* filename) {
+    srand(time(NULL));
+
+    FILE* file = fopen(filename, "wb");
+    if (file == NULL) {
+        printf("reading error\n");
+        exit(1);
+    }
+
+    int n = rand() % 2 + 2;
+    fwrite(&n, sizeof(int), 1, file);
+
+    int amount_matrix = rand() % 3 + 1;
+
+    for (int k = 0; k < amount_matrix; k++) {
+        int matrix[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = rand() % 100;
+            }
+        }
+        fwrite(matrix, sizeof(int), n * n, file);
+    }
+
+    fclose(file);
+}
+
+int isSymmetric(int n, int matrix[n][n]) {
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            if (matrix[i][j] != matrix[j][i])
+                return 0;
+
+    return 1;
+}
+
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void transpose(int n, int matrix[n][n]) {
+    for (int i = 0; i < n; i++)
+        for (int j = i + 1; j < n; j++)
+            swap(&matrix[i][j], &matrix[j][i]);
+}
+
+void transposeNonSymmetricMatrix(const char* filename) {
+    FILE* file = fopen(filename, "r+b");
+    if (file == NULL) {
+        printf("Ошибка при открытии файла.\n");
+        return;
+    }
+
+    int n;
+    if (fread(&n, sizeof(int), 1, file) != 1) {
+        printf("Ошибка при чтении порядка матрицы.\n");
+        fclose(file);
+        return;
+    }
+
+    while(1) {
+        int matrix[n][n];
+        size_t read_count = fread(matrix, sizeof(int), n * n, file);
+        if (read_count != n * n) {
+            if (feof(file)) {
+                break;
+            } else {
+                printf("Ошибка при чтении матрицы.\n");
+                break;
+            }
+        }
+
+        if (!isSymmetric(n, matrix)) {
+            transpose(n, matrix);
+            fseek(file, -(long int)read_count * sizeof(int), SEEK_CUR);
+            fwrite(matrix, sizeof(int), read_count, file);
+            fseek(file, (long int)read_count * sizeof(int), SEEK_CUR);
+        }
+    }
+
+    fclose(file);
+}
+
+void printBinFileMatrix(const char* filename) {
+    FILE* file = fopen(filename, "rb");
+    if (file == NULL) {
+        printf("reading error\n");
+        exit(1);
+    }
+
+    int n;
+    fread(&n, sizeof(int), 1, file);
+
+    if (n == 0)
+        return;
+
+    while (!feof(file)) {
+        int matrix[n][n];
+        if (fread(matrix, sizeof(int), n * n, file) != n * n)
+            break;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                printf("%d ", matrix[i][j]);
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+
+    fclose(file);
+}
