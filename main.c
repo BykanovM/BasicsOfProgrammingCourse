@@ -3517,6 +3517,7 @@ void testUpdateProductOrderLessProduct() {
 #include "libs/algorithms/tasks/generate_nums.h"
 #include "libs/algorithms/tasks/binary_tree.h"
 #include "libs/algorithms/tasks/rearrange_strings.h"
+#include "libs/algorithms/tasks/filter_nums.h"
 
 void test() {
     test_fillMatrix();
@@ -3527,6 +3528,7 @@ void test() {
     test_generateNums();
     test_generateTree();
     test_rearrangeString();
+    test_filterNums();
 }
 
 int main() {
