@@ -3514,6 +3514,7 @@ void testUpdateProductOrderLessProduct() {
 #include "libs/algorithms/tasks/median_filter.h"
 #include "libs/algorithms/tasks/get_domains.h"
 #include "libs/algorithms/tasks/get_submatrix.h"
+#include "libs/algorithms/tasks/generate_nums.h"
 
 void test() {
     test_fillMatrix();
@@ -3521,6 +3522,7 @@ void test() {
     test_medianFilter();
     test_getDomains();
     test_getSubmatrix();
+    test_generateNums();
 }
 
 int main() {
