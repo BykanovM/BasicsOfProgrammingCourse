@@ -3515,6 +3515,7 @@ void testUpdateProductOrderLessProduct() {
 #include "libs/algorithms/tasks/get_domains.h"
 #include "libs/algorithms/tasks/get_submatrix.h"
 #include "libs/algorithms/tasks/generate_nums.h"
+#include "libs/algorithms/tasks/binary_tree.h"
 
 void test() {
     test_fillMatrix();
@@ -3523,6 +3524,7 @@ void test() {
     test_getDomains();
     test_getSubmatrix();
     test_generateNums();
+    test_generateTree();
 }
 
 int main() {
