@@ -1,4 +1,14 @@
 add_library(algorithms
         algorithms.c
         array/array.c
+        tasks/fill_matrix.h
+        tasks/game_life.h
+        tasks/median_filter.h
+        tasks/get_domains.h
+        tasks/get_submatrix.h
+        tasks/generate_nums.h
+        tasks/binary_tree.h
+        tasks/rearrange_strings.h
+        tasks/filter_nums.h
+        tasks/auto_completion.h
 )

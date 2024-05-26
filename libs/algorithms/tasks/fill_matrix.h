@@ -49,7 +49,6 @@ void fillMatrix(const char* filename) {
     fclose(file);
 }
 
-
 void test_fillMatrixEmptyFile() {
     const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab20\\1_test_1.txt";
 
@@ -70,7 +69,6 @@ void test_fillMatrixEmptyFile() {
 
     assert(n == 0);
 }
-
 
 void test_fillMatrixUnitMatrix() {
     const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab20\\1_test_2.txt";
@@ -99,7 +97,6 @@ void test_fillMatrixUnitMatrix() {
     assert(n == 1);
     assert(x == 1);
 }
-
 
 void test_fillMatrixMoreElements() {
     const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab20\\1_test_3.txt";
