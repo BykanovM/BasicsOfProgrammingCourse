@@ -2547,7 +2547,7 @@ void test_isEveryWordLetterInString() {
     getWord("word", &word5);
 
     assert(isEveryWordLetterInString(string5, word5));
-}*/
+}
 
 void testMatrixTransposeOneElementMatrix() {
     const char filename[] = "C:\\Users\\bykan\\Desktop\\Lab19\\1_test_1.txt";
@@ -3507,42 +3507,12 @@ void testUpdateProductOrderLessProduct() {
     assert(res_pr2.quantity == 2);
 
     assert(strcmp(od.order_name, res_od.order_name) == 0 && od.quantity == res_od.quantity);
-}
+}*/
+
+#include "libs/algorithms/tasks/fill_matrix.h"
 
 void test() {
-    testMatrixTransposeMatrix();
-    testMatrixTransposeOneElementMatrix();
-    testMatrixTransposeUnitSymmetricMatrix();
-    testConvertFloatZeroQuantity();
-    testConvertFloatOneElement();
-    testConvertFloatMoreElement();
-    testEvaluateExpression2Operand();
-    testEvaluateExpression3Operand();
-    testFilterWordEmptyFile();
-    testFilterWordSequenceInLine();
-    testFilterWordSequenceNotInLine();
-    testLeaveLongestWordEmptyFile();
-    testLeaveLongestWordMoreElementInLine();
-    testLeaveLongestWordOneElementInLine();
-    testRemoveTruePolynomialEmptyFile();
-    testRemoveTruePolynomialNotTrueExpression();
-    testRemoveTruePolynomialTrueExpression();
-    testRearrangeNumbersEmptyFile();
-    testRearrangeNumbersOnlyNegative();
-    testRearrangeNumbersOnlyPositive();
-    testRearrangeNumbersMixed();
-    testTransposeNonSymmetricMatrixEmpty();
-    testTransposeNonSymmetricMatrixOneMatrices();
-    testTransposeNonSymmetricMatrixSymmetricMatrix();
-    testTransposeNonSymmetricMatrixNonSymmetricMatrix();
-    testGetBestTeamEmptyFile();
-    testGetBestTeamNLessQuantity();
-    testGetBestTeamNMoreQuantity();
-    testUpdateProductEmptyFiles();
-    testUpdateProductFirstFileEmpty();
-    testUpdateProductSecondFileEmpty();
-    testUpdateProductOrderLessProduct();
-    testUpdateProductOrderMoreProduct();
+    test_fillMatrix();
 }
 
 int main() {
